@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="About"
+  description="Girish Manghani is a FinTech Product Leader at Fidelity Investments with over a decade of experience in product management."
+>
+  <Nav />
+
+  <main class="pt-16">
+    <div class="max-w-3xl mx-auto px-6 py-20">
+
+      <!-- Header -->
+      <div class="mb-14">
+        <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-6">About</p>
+        <div class="flex items-start gap-6 mb-8">
+          <div class="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+            G
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-slate-900 mb-1">Girish Manghani</h1>
+            <p class="text-slate-500">FinTech Product Leader · Fidelity Investments</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="prose prose-slate prose-lg max-w-none
+        prose-headings:font-bold prose-headings:text-slate-900
+        prose-p:text-slate-700 prose-p:leading-relaxed
+        prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-slate-900">
+
+        <p>
+          I'm a FinTech Product Leader at Fidelity Investments, where I own the strategy and transformation of digital investing, trading, and financial planning experiences — products that help millions of customers take meaningful control of their financial future.
+        </p>
+
+        <p>
+          With more than a decade in product management, I've built my career at the intersection of strategy, finance, business, and design. My teams build the award-winning apps and websites that power Fidelity's digital presence, supporting <strong>over 30 million active users</strong>, delivering consistent revenue growth, and maintaining a steady 5-star customer satisfaction rating — with rock-solid stability and resiliency.
+        </p>
+
+        <p>
+          As a people leader, I champion an inclusive culture and build cross-functional organizations that compete aggressively and win top industry awards. I believe the best products come from teams that feel safe to challenge assumptions, move fast, and care deeply about the people they're building for.
+        </p>
+
+        <h2>Why this site?</h2>
+
+        <p>
+          Product management is changing faster than any point in the discipline's history. AI isn't just a new tool — it's reshaping the entire job: how we discover, how we build, how we decide, and how we lead. I started this site because I couldn't find a single destination for substantive, practitioner-level thinking on what that means.
+        </p>
+
+        <p>
+          My goal is to write clearly about what's actually changing, what it means for PMs at every stage of their career, and how to navigate the shift intelligently — whether you're a seasoned leader trying to stay sharp, a junior PM building your foundation, or someone making the move into product for the first time.
+        </p>
+
+        <h2>Products I've built</h2>
+
+        <p>If you're a Fidelity customer, there's a good chance you've used something my teams have worked on:</p>
+
+        <ul>
+          <li>
+            <a href="https://apps.apple.com/us/app/fidelity-investments/id348177453" target="_blank" rel="noopener noreferrer">Fidelity Investments iOS App</a>
+          </li>
+          <li>
+            <a href="https://play.google.com/store/apps/details?id=com.fidelity.android" target="_blank" rel="noopener noreferrer">Fidelity Investments Android App</a>
+          </li>
+          <li>
+            <a href="https://www.fidelity.com" target="_blank" rel="noopener noreferrer">Fidelity.com</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Divider -->
+      <hr class="border-slate-200 my-14" />
+
+      <!-- Newsletter -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">Newsletter</p>
+        <h3 class="text-xl font-bold text-slate-900 mb-2">Get new articles in your inbox</h3>
+        <p class="text-slate-600 mb-6">
+          I write about AI, product management, strategy, and leadership. New pieces go out via Substack — free to subscribe.
+        </p>
+        <a
+          href="https://substack.com/@girishmanghani"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-blue-600 text-white font-medium px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+        >
+          Subscribe on Substack
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Base>

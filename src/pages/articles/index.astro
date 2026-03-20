@@ -1,0 +1,107 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+const allArticles = await getCollection('articles');
+const sorted = allArticles.sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const audienceFilters = [
+  { value: 'all', label: 'All' },
+  { value: 'seasoned', label: 'Seasoned PMs' },
+  { value: 'leaders', label: 'Senior Leaders' },
+  { value: 'junior', label: 'Junior PMs' },
+  { value: 'transitioning', label: 'Career Transitioners' },
+];
+---
+
+<Base
+  title="Articles"
+  description="All articles on Product Management in the age of AI — strategy, decision-making, career guidance, and more."
+>
+  <Nav />
+
+  <main class="pt-16">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+
+      <!-- Header -->
+      <div class="mb-12">
+        <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">Articles</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+          All Articles
+        </h1>
+        <p class="text-slate-500 text-lg max-w-xl">
+          Thinking on product management, AI strategy, leadership, and careers — for every stage of the journey.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap gap-2 mb-10" id="filter-tabs">
+        {audienceFilters.map(({ value, label }) => (
+          <button
+            data-filter={value}
+            class:list={[
+              'filter-btn text-sm font-medium px-4 py-2 rounded-full border transition-colors',
+              value === 'all'
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
+            ]}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="articles-grid">
+        {sorted.map((article) => (
+          <div data-audience={article.data.audience} class="article-item">
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              slug={article.slug}
+              pubDate={article.data.pubDate}
+              tags={article.data.tags}
+              audience={article.data.audience}
+            />
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.article-item');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update button styles
+      buttons.forEach((b) => {
+        b.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+        b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+      });
+      btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+      btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+
+      // Filter articles
+      items.forEach((item) => {
+        if (filter === 'all' || item.dataset.audience === filter || item.dataset.audience === 'all') {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
