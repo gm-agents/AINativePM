@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WA 4-Year Planner — Westford Academy</title>
+<style>
+:root{--wa-blue:#003087;--wa-gold:#FFB81C;--wa-dark:#001a4d;--bg:#f0f4f8;--card:#fff;--text:#1a2332;--muted:#64748b;--border:#e2e8f0;--shadow:0 4px 24px rgba(0,0,0,.08);--r:16px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+nav{background:var(--wa-blue);color:#fff;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,48,135,.35)}
+.nav-brand{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1rem}
+.nav-badge{background:var(--wa-gold);color:var(--wa-dark);padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:900;letter-spacing:.06em}
+.nav-links{display:flex;gap:.35rem}
+.nav-btn{background:none;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);padding:5px 13px;border-radius:20px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s}
+.nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.7)}
+.screen{display:none;min-height:calc(100vh - 58px)}
+.screen.active{display:block}
+/* HOME */
+.hero{background:linear-gradient(135deg,var(--wa-dark) 0%,var(--wa-blue) 55%,#1657b5 100%);color:#fff;padding:4rem 1.5rem 5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.015) 40px,rgba(255,255,255,.015) 80px)}
+.hero-content{position:relative;max-width:700px;margin:0 auto}
+.hero-logo{width:78px;height:78px;background:var(--wa-gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.9rem;font-weight:900;color:var(--wa-dark);box-shadow:0 8px 32px rgba(255,184,28,.45)}
+.hero h1{font-size:clamp(1.9rem,5vw,2.9rem);font-weight:800;margin-bottom:.9rem;letter-spacing:-.02em;line-height:1.15}
+.hero h1 span{color:var(--wa-gold)}
+.hero p{font-size:1.1rem;opacity:.85;line-height:1.75;margin-bottom:2.25rem}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--wa-gold);color:var(--wa-dark);border:none;padding:13px 30px;border-radius:50px;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(255,184,28,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,184,28,.55)}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.35);padding:13px 30px;border-radius:50px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-ghost:hover{background:rgba(255,255,255,.22)}
+.features{max-width:1100px;margin:0 auto;padding:3.5rem 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+.feat-card{background:var(--card);border-radius:var(--r);padding:1.5rem;box-shadow:var(--shadow);border:1px solid var(--border);text-align:center}
+.feat-icon{font-size:2rem;margin-bottom:.75rem}
+.feat-card h3{font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.feat-card p{font-size:.83rem;color:var(--muted);line-height:1.55}
+/* QUIZ */
+.quiz-wrap{max-width:740px;margin:0 auto;padding:2.5rem 1.5rem}
+.quiz-header{text-align:center;margin-bottom:2rem}
+.quiz-header h2{font-size:1.75rem;font-weight:800;margin-bottom:.5rem}
+.quiz-header p{color:var(--muted);font-size:.95rem}
+.progress-bar{background:var(--border);border-radius:99px;height:7px;margin-bottom:.5rem;overflow:hidden}
+.progress-fill{background:linear-gradient(90deg,var(--wa-blue),var(--wa-gold));height:100%;border-radius:99px;transition:width .4s}
+.progress-label{font-size:.78rem;color:var(--muted);text-align:right;margin-bottom:1.5rem}
+.q-card{background:var(--card);border-radius:var(--r);padding:2rem;box-shadow:var(--shadow);border:1px solid var(--border)}
+.q-num{font-size:.78rem;font-weight:700;color:var(--wa-blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.q-text{font-size:1.15rem;font-weight:700;margin-bottom:1.5rem;line-height:1.45}
+.q-opts{display:grid;gap:.65rem}
+.q-opt{background:var(--bg);border:2px solid var(--border);border-radius:var(--rs);padding:.85rem 1.1rem;cursor:pointer;font-size:.9rem;font-weight:500;transition:all .18s;text-align:left;color:var(--text)}
+.q-opt:hover{border-color:var(--wa-blue);background:#eef3fb}
+.q-opt.selected{border-color:var(--wa-blue);background:#dbeafe;color:var(--wa-dark);font-weight:600}
+.quiz-nav{display:flex;justify-content:space-between;margin-top:1.5rem;gap:1rem}
+.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:10px 22px;border-radius:50px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s}
+.btn-back:hover{border-color:var(--wa-blue);color:var(--wa-blue)}
+.btn-next{background:var(--wa-blue);color:#fff;border:none;padding:10px 28px;border-radius:50px;cursor:pointer;font-size:.88rem;font-weight:700;transition:all .2s}
+.btn-next:hover{background:var(--wa-dark)}
+.btn-next:disabled{background:#cbd5e1;cursor:not-allowed}
+/* RESULTS */
+.results-wrap{max-width:1000px;margin:0 auto;padding:2.5rem 1.5rem}
+.results-header{text-align:center;margin-bottom:2rem}
+.results-header h2{font-size:1.75rem;font-weight:800;margin-bottom:.5rem}
+.top-pathway{color:#fff;border-radius:var(--r);padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.top-badge{background:var(--wa-gold);color:var(--wa-dark);padding:3px 12px;border-radius:20px;font-size:.72rem;font-weight:900;display:inline-block;margin-bottom:.75rem;letter-spacing:.06em}
+.top-pathway h3{font-size:1.4rem;font-weight:800;margin-bottom:.4rem}
+.top-pathway p{opacity:.9;font-size:.93rem;line-height:1.6;margin-bottom:1rem}
+.top-pathway-courses{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.course-chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 11px;font-size:.78rem;font-weight:600}
+.btn-load-plan{background:var(--wa-gold);color:var(--wa-dark);border:none;padding:11px 26px;border-radius:50px;font-weight:800;cursor:pointer;font-size:.9rem;transition:all .2s;margin-right:.6rem}
+.btn-load-plan:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,184,28,.5)}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem}
+.score-card{background:var(--card);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:all .2s}
+.score-card:hover{border-color:var(--wa-blue);transform:translateY(-1px)}
+.score-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.score-card-name{font-weight:700;font-size:.9rem}
+.score-pct{font-size:.85rem;font-weight:700;color:var(--wa-blue)}
+.score-bar-bg{background:var(--bg);border-radius:99px;height:6px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--wa-blue),var(--wa-gold));transition:width .6s ease}
+.retake-btn{display:block;margin:0 auto;background:none;border:2px solid var(--border);color:var(--muted);padding:10px 24px;border-radius:50px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s}
+.retake-btn:hover{border-color:var(--wa-blue);color:var(--wa-blue)}
+/* PLANNER */
+.planner-wrap{max-width:1200px;margin:0 auto;padding:2rem 1.5rem}
+.planner-top{display:flex;gap:1.5rem;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap}
+.planner-title{flex:1}
+.planner-title h2{font-size:1.5rem;font-weight:800;margin-bottom:.25rem}
+.planner-title p{color:var(--muted);font-size:.88rem}
+.req-tracker{background:var(--card);border-radius:var(--r);padding:1.25rem 1.5rem;box-shadow:var(--shadow);border:1px solid var(--border);min-width:280px}
+.req-tracker h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.9rem}
+.req-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem}
+.req-label{font-size:.8rem;font-weight:600;width:80px;flex-shrink:0}
+.req-bar-bg{flex:1;background:var(--bg);border-radius:99px;height:7px;overflow:hidden}
+.req-bar-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--wa-blue)}
+.req-bar-fill.done{background:#16a34a}
+.req-nums{font-size:.75rem;color:var(--muted);width:52px;text-align:right;flex-shrink:0}
+.req-check{font-size:.85rem;width:16px;flex-shrink:0}
+.grade-tabs{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.grade-tab{background:var(--card);border:2px solid var(--border);border-radius:var(--rs);padding:7px 18px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);transition:all .2s}
+.grade-tab:hover{border-color:var(--wa-blue);color:var(--wa-blue)}
+.grade-tab.active{background:var(--wa-blue);color:#fff;border-color:var(--wa-blue)}
+.semester-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.semester-col{background:var(--card);border-radius:var(--r);padding:1.25rem;box-shadow:var(--shadow);border:1px solid var(--border)}
+.semester-col h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.85rem}
+.course-entry{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;background:var(--bg);border-radius:var(--rs);margin-bottom:.5rem;border:1px solid var(--border)}
+.course-entry-name{flex:1;font-size:.85rem;font-weight:600}
+.course-entry-cr{font-size:.78rem;color:var(--muted);white-space:nowrap}
+.course-entry-del{background:none;border:none;cursor:pointer;color:#ef4444;font-size:.95rem;padding:2px 5px;border-radius:4px;transition:all .15s;opacity:.6}
+.course-entry-del:hover{opacity:1;background:#fee2e2}
+.add-course-row{display:flex;gap:.6rem;margin-top:.5rem;position:relative}
+.course-search{flex:1;padding:.55rem .8rem;border:2px solid var(--border);border-radius:var(--rs);font-size:.85rem;outline:none;transition:border .2s}
+.course-search:focus{border-color:var(--wa-blue)}
+.btn-add{background:var(--wa-blue);color:#fff;border:none;padding:.55rem 1rem;border-radius:var(--rs);cursor:pointer;font-size:.82rem;font-weight:700;white-space:nowrap;transition:all .2s}
+.btn-add:hover{background:var(--wa-dark)}
+.dropdown-list{position:absolute;top:calc(100% + 4px);left:0;right:60px;background:var(--card);border:1.5px solid var(--wa-blue);border-radius:var(--rs);z-index:100;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.dropdown-item{padding:.55rem .85rem;cursor:pointer;font-size:.83rem;border-bottom:1px solid var(--border);transition:background .15s}
+.dropdown-item:last-child{border-bottom:none}
+.dropdown-item:hover{background:#eef3fb}
+.di-name{font-weight:600;display:block}
+.di-meta{color:var(--muted);font-size:.75rem}
+.year-summary{background:var(--card);border-radius:var(--rs);padding:.85rem 1.25rem;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem}
+.year-sum-item{text-align:center}
+.year-sum-val{font-size:1.2rem;font-weight:800;color:var(--wa-blue)}
+.year-sum-lbl{font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.total-credits{font-size:1.5rem;font-weight:900;color:var(--wa-blue)}
+/* CATALOG */
+.catalog-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.catalog-wrap h2{font-size:1.5rem;font-weight:800;margin-bottom:.25rem}
+.catalog-wrap>p{color:var(--muted);font-size:.88rem;margin-bottom:1.25rem}
+.catalog-filters{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-btn{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:5px 14px;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--muted);transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--wa-blue);color:#fff;border-color:var(--wa-blue)}
+.catalog-search{width:100%;padding:.65rem 1rem;border:2px solid var(--border);border-radius:var(--rs);font-size:.9rem;margin-bottom:1rem;outline:none;transition:border .2s}
+.catalog-search:focus{border-color:var(--wa-blue)}
+.dept-section{margin-bottom:2rem}
+.dept-title{font-size:.82rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--wa-blue);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:2px solid var(--border)}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.75rem}
+.course-card{background:var(--card);border-radius:var(--rs);padding:1rem;box-shadow:0 2px 8px rgba(0,0,0,.05);border:1px solid var(--border);transition:all .2s;cursor:pointer}
+.course-card:hover{border-color:var(--wa-blue);box-shadow:0 4px 16px rgba(0,48,135,.12);transform:translateY(-1px)}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.4rem}
+.cc-name{font-size:.88rem;font-weight:700;line-height:1.35;flex:1}
+.cc-cr{background:var(--bg);border-radius:20px;padding:2px 8px;font-size:.72rem;font-weight:700;color:var(--wa-blue);white-space:nowrap;flex-shrink:0}
+.cc-meta{display:flex;gap:.4rem;flex-wrap:wrap}
+.cc-tag{padding:2px 7px;border-radius:20px;font-size:.7rem;font-weight:700}
+.tag-cp{background:#dbeafe;color:#1d4ed8}
+.tag-h{background:#ede9fe;color:#6d28d9}
+.tag-ap{background:#fef3c7;color:#92400e}
+.tag-de{background:#dcfce7;color:#166534}
+.tag-f{background:#f1f5f9;color:#475569}
+.tag-gr{background:#f1f5f9;color:#475569}
+.notif{position:fixed;bottom:24px;right:24px;background:var(--wa-dark);color:#fff;padding:12px 20px;border-radius:var(--rs);font-size:.875rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:999;transform:translateY(80px);opacity:0;transition:all .3s}
+.notif.show{transform:translateY(0);opacity:1}
+@media(max-width:650px){.semester-grid{grid-template-columns:1fr}.nav-badge{display:none}.planner-top{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">🎓 WA Planner <span class="nav-badge">WESTFORD ACADEMY</span></div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showScreen('home')">Home</button>
+    <button class="nav-btn" onclick="showScreen('quiz')">Quiz</button>
+    <button class="nav-btn" onclick="showScreen('planner')">Planner</button>
+    <button class="nav-btn" onclick="showScreen('catalog')">Catalog</button>
+  </div>
+</nav>
+
+<div id="screen-home" class="screen active">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-logo">WA</div>
+      <h1>Plan Your <span>Four Years</span><br>at Westford Academy</h1>
+      <p>20-question pathway quiz · real 2026–27 course catalog · credit tracking · complete 4-year plans for every interest.</p>
+      <div class="hero-cta">
+        <button class="btn-primary" onclick="showScreen('quiz')">🧭 Take the Pathway Quiz</button>
+        <button class="btn-ghost" onclick="showScreen('planner')">📋 Open Planner</button>
+      </div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feat-card"><div class="feat-icon">🧭</div><h3>Pathway Quiz</h3><p>20 questions covering interests, strengths, and goals — matched to 20 academic pathways.</p></div>
+    <div class="feat-card"><div class="feat-icon">📋</div><h3>4-Year Planner</h3><p>Add courses to each semester. Tracks your total credit load by year and running total.</p></div>
+    <div class="feat-card"><div class="feat-icon">✅</div><h3>Grad Tracker</h3><p>WA's actual graduation requirements tracked live: English, Math, Science, PE, and more.</p></div>
+    <div class="feat-card"><div class="feat-icon">📚</div><h3>Full Catalog</h3><p>Every course from the real 2026–27 Program of Studies — searchable and filterable.</p></div>
+    <div class="feat-card"><div class="feat-icon">🗺️</div><h3>20 Pathways</h3><p>From STEM to Theater to World Languages — each with a full realistic 4-year plan.</p></div>
+    <div class="feat-card"><div class="feat-icon">💡</div><h3>Score Breakdown</h3><p>See exactly how your quiz answers scored across every pathway so you can explore the options that fit.</p></div>
+  </div>
+</div>
+
+<div id="screen-quiz" class="screen">
+  <div class="quiz-wrap">
+    <div class="quiz-header"><h2>Find Your Pathway</h2><p>20 questions · takes about 4 minutes · no wrong answers.</p></div>
+    <div class="progress-bar"><div class="progress-fill" id="qprogress" style="width:5%"></div></div>
+    <div class="progress-label" id="qlabel">Question 1 of 20</div>
+    <div class="q-card" id="qcard"></div>
+    <div class="quiz-nav">
+      <button class="btn-back" id="qback" onclick="quizBack()" disabled>← Back</button>
+      <button class="btn-next" id="qnext" onclick="quizNext()" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+<div id="screen-results" class="screen">
+  <div class="results-wrap">
+    <div class="results-header"><h2>Your Pathway Results</h2><p>Based on your answers, here's where you'd thrive at WA.</p></div>
+    <div id="top-pathway-card"></div>
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--muted)">All Pathway Scores</h3>
+    <div class="score-grid" id="score-grid"></div>
+    <button class="retake-btn" onclick="retakeQuiz()">↺ Retake Quiz</button>
+  </div>
+</div>
+
+<div id="screen-planner" class="screen">
+  <div class="planner-wrap">
+    <div class="planner-top">
+      <div class="planner-title">
+        <h2>4-Year Course Planner</h2>
+        <p>Add courses to each semester. Click ✕ to remove. Changes reflect in the requirement tracker instantly.</p>
+      </div>
+      <div class="req-tracker">
+        <h4>Graduation Requirements</h4>
+        <div id="req-rows"></div>
+        <div style="margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:.8rem;font-weight:700;color:var(--muted)">TOTAL CREDITS</span>
+          <span class="total-credits" id="total-cr">0</span>
+        </div>
+      </div>
+    </div>
+    <div class="grade-tabs" id="grade-tabs"></div>
+    <div class="year-summary" id="year-summary"></div>
+    <div class="semester-grid" id="semester-grid"></div>
+  </div>
+</div>
+
+<div id="screen-catalog" class="screen">
+  <div class="catalog-wrap">
+    <h2>Course Catalog</h2>
+    <p>2026–27 Program of Studies. Click any course to add it to your planner.</p>
+    <input class="catalog-search" id="cat-search" placeholder="Search courses by name or department…" oninput="renderCatalog()">
+    <div class="catalog-filters" id="cat-filters"></div>
+    <div id="catalog-body"></div>
+  </div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+/* ================================================================
+   GRADUATION REQUIREMENTS
+================================================================ */
+const REQS=[
+  {key:'english',  label:'English',  needed:20},
+  {key:'math',     label:'Math',     needed:20},
+  {key:'science',  label:'Science',  needed:15},
+  {key:'social',   label:'History',  needed:15},
+  {key:'language', label:'Language', needed:10},
+  {key:'arts',     label:'Arts',     needed:5},
+  {key:'pe',       label:'PE',       needed:10},
+  {key:'health',   label:'Health',   needed:2.5},
+  {key:'elective', label:'Elective', needed:22.5},
+];
+
+/* ================================================================
+   COURSE CATALOG — 2026-27 WA Program of Studies
+================================================================ */
+const COURSES=[
+  // ENGLISH
+  {id:'e9cp',    name:'English 9 CP',                         cr:5,   gr:[9],          dept:'English',         req:'english', lvl:'CP'},
+  {id:'e9h',     name:'English 9 Honors',                     cr:5,   gr:[9],          dept:'English',         req:'english', lvl:'H'},
+  {id:'e10cp',   name:'English 10 CP',                        cr:5,   gr:[10],         dept:'English',         req:'english', lvl:'CP'},
+  {id:'e10h',    name:'English 10 Honors',                    cr:5,   gr:[10],         dept:'English',         req:'english', lvl:'H'},
+  {id:'e11cp',   name:'English 11 CP',                        cr:5,   gr:[11],         dept:'English',         req:'english', lvl:'CP'},
+  {id:'e11h',    name:'English 11 Honors',                    cr:5,   gr:[11],         dept:'English',         req:'english', lvl:'H'},
+  {id:'e12cp',   name:'English 12 CP',                        cr:5,   gr:[12],         dept:'English',         req:'english', lvl:'CP'},
+  {id:'e12h',    name:'English 12 Honors',                    cr:5,   gr:[12],         dept:'English',         req:'english', lvl:'H'},
+  {id:'aplang',  name:'AP English Language & Composition',    cr:5,   gr:[11,12],      dept:'English',         req:'english', lvl:'AP'},
+  {id:'aplit',   name:'AP English Literature & Composition',  cr:5,   gr:[12],         dept:'English',         req:'english', lvl:'AP'},
+  {id:'journ1',  name:'Journalism I',                         cr:5,   gr:[9,10,11,12], dept:'English',         req:'english', lvl:'CP'},
+  {id:'journ2',  name:'Journalism II',                        cr:5,   gr:[10,11,12],   dept:'English',         req:'english', lvl:'H'},
+  {id:'journ3',  name:'Journalism III',                       cr:5,   gr:[11,12],      dept:'English',         req:'english', lvl:'H'},
+  {id:'journ4',  name:'Journalism IV',                        cr:5,   gr:[12],         dept:'English',         req:'english', lvl:'H'},
+  {id:'cw1cp',   name:'Creative Writing I CP',                cr:2.5, gr:[11,12],      dept:'English',         req:'elective',lvl:'CP'},
+  {id:'cw1h',    name:'Creative Writing I Honors',            cr:2.5, gr:[11,12],      dept:'English',         req:'elective',lvl:'H'},
+  {id:'cw2h',    name:'Creative Writing II Honors',           cr:2.5, gr:[11,12],      dept:'English',         req:'elective',lvl:'H'},
+  {id:'filmlitcp',name:'Film and Literature CP',              cr:2.5, gr:[11,12],      dept:'English',         req:'elective',lvl:'CP'},
+  {id:'filmlith', name:'Film and Literature Honors',          cr:2.5, gr:[11,12],      dept:'English',         req:'elective',lvl:'H'},
+  {id:'pubspeak', name:'Public Speaking',                     cr:2.5, gr:[9,10,11,12], dept:'English',         req:'elective',lvl:'CP'},
+  // MATH
+  {id:'alg1',    name:'Algebra 1 CP',                         cr:5,   gr:[9],          dept:'Math',            req:'math',    lvl:'CP'},
+  {id:'geomcp',  name:'Geometry CP',                          cr:5,   gr:[9,10],       dept:'Math',            req:'math',    lvl:'CP'},
+  {id:'geomh',   name:'Geometry Honors',                      cr:5,   gr:[9,10],       dept:'Math',            req:'math',    lvl:'H'},
+  {id:'foundalg2',name:'Foundations of Algebra 2',            cr:5,   gr:[10,11],      dept:'Math',            req:'math',    lvl:'F'},
+  {id:'alg2cp',  name:'Algebra 2 CP',                         cr:5,   gr:[9,10,11],    dept:'Math',            req:'math',    lvl:'CP'},
+  {id:'alg2h',   name:'Algebra 2 Honors',                     cr:5,   gr:[9,10,11],    dept:'Math',            req:'math',    lvl:'H'},
+  {id:'trigadv', name:'Trigonometry & Advanced Algebra',       cr:5,   gr:[11,12],      dept:'Math',            req:'math',    lvl:'CP'},
+  {id:'precalcp',name:'Pre-Calculus CP',                       cr:5,   gr:[11,12],      dept:'Math',            req:'math',    lvl:'CP'},
+  {id:'precalh', name:'Pre-Calculus Honors',                   cr:5,   gr:[11,12],      dept:'Math',            req:'math',    lvl:'H'},
+  {id:'apprecal',name:'AP Pre-Calculus',                       cr:5,   gr:[10,11,12],   dept:'Math',            req:'math',    lvl:'AP'},
+  {id:'calch',   name:'Calculus Honors',                       cr:5,   gr:[12],         dept:'Math',            req:'math',    lvl:'H'},
+  {id:'apcalab', name:'AP Calculus AB',                        cr:5,   gr:[11,12],      dept:'Math',            req:'math',    lvl:'AP'},
+  {id:'apcalbc', name:'AP Calculus BC',                        cr:5,   gr:[12],         dept:'Math',            req:'math',    lvl:'AP'},
+  {id:'apstats', name:'AP Statistics',                         cr:5,   gr:[11,12],      dept:'Math',            req:'math',    lvl:'AP'},
+  // COMPUTER SCIENCE
+  {id:'introcs', name:'Introduction to Computer Science',      cr:5,   gr:[9,10,11,12], dept:'Computer Science',req:'elective',lvl:'CP'},
+  {id:'webdev',  name:'Web Page Development',                  cr:2.5, gr:[9,10,11,12], dept:'Computer Science',req:'elective',lvl:'CP'},
+  {id:'apcsa',   name:'AP Computer Science A',                 cr:5,   gr:[10,11,12],   dept:'Computer Science',req:'elective',lvl:'AP'},
+  // SCIENCE
+  {id:'biofound',name:'Foundations of Biology',                cr:5,   gr:[9],          dept:'Science',         req:'science', lvl:'F'},
+  {id:'biocp',   name:'Biology CP',                            cr:5,   gr:[9,10],       dept:'Science',         req:'science', lvl:'CP'},
+  {id:'bioh',    name:'Biology Honors',                        cr:5,   gr:[9,10],       dept:'Science',         req:'science', lvl:'H'},
+  {id:'apbio',   name:'AP Biology',                            cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'AP'},
+  {id:'chemfound',name:'Foundations of Chemistry',             cr:5,   gr:[10],         dept:'Science',         req:'science', lvl:'F'},
+  {id:'chemcp',  name:'Chemistry CP',                          cr:5,   gr:[10,11],      dept:'Science',         req:'science', lvl:'CP'},
+  {id:'chemh',   name:'Chemistry Honors',                      cr:5,   gr:[10,11],      dept:'Science',         req:'science', lvl:'H'},
+  {id:'apchem',  name:'AP Chemistry',                          cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'AP'},
+  {id:'physcp',  name:'Physics CP',                            cr:5,   gr:[11],         dept:'Science',         req:'science', lvl:'CP'},
+  {id:'physh',   name:'Physics Honors',                        cr:5,   gr:[11],         dept:'Science',         req:'science', lvl:'H'},
+  {id:'apphs1',  name:'AP Physics 1',                          cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'AP'},
+  {id:'apphsc',  name:'AP Physics C: Mechanics',               cr:5,   gr:[12],         dept:'Science',         req:'science', lvl:'AP'},
+  {id:'apenv',   name:'AP Environmental Science',              cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'AP'},
+  {id:'introeng',name:'Introduction to Engineering',           cr:5,   gr:[9,10,11,12], dept:'Science',         req:'science', lvl:'CP'},
+  {id:'engdes',  name:'Engineering Design',                    cr:5,   gr:[10,11,12],   dept:'Science',         req:'science', lvl:'CP'},
+  {id:'biotech', name:'Biotechnology',                         cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'CP'},
+  {id:'anat',    name:'Anatomy & Physiology',                  cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'CP'},
+  {id:'forensic',name:'Forensic Science',                      cr:5,   gr:[11,12],      dept:'Science',         req:'science', lvl:'CP'},
+  // HISTORY & SOCIAL STUDIES
+  {id:'mwhcp',   name:'Modern World History CP',               cr:5,   gr:[9],          dept:'History',         req:'social',  lvl:'CP'},
+  {id:'mwhh',    name:'Modern World History Honors',           cr:5,   gr:[9],          dept:'History',         req:'social',  lvl:'H'},
+  {id:'ush1cp',  name:'US History I CP',                       cr:5,   gr:[10],         dept:'History',         req:'social',  lvl:'CP'},
+  {id:'ush1h',   name:'US History I Honors',                   cr:5,   gr:[10],         dept:'History',         req:'social',  lvl:'H'},
+  {id:'ush2h',   name:'US History II Honors',                  cr:5,   gr:[11],         dept:'History',         req:'social',  lvl:'H'},
+  {id:'apush',   name:'AP United States History',              cr:5,   gr:[11],         dept:'History',         req:'social',  lvl:'AP'},
+  {id:'apwhm',   name:'AP World History: Modern',              cr:5,   gr:[10,11],      dept:'History',         req:'social',  lvl:'AP'},
+  {id:'apeuroh', name:'AP European History',                   cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'AP'},
+  {id:'apgov',   name:'AP US Government & Politics',           cr:5,   gr:[12],         dept:'History',         req:'social',  lvl:'AP'},
+  {id:'appsych', name:'AP Psychology',                         cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'AP'},
+  {id:'apmacro', name:'AP Macroeconomics',                     cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'AP'},
+  {id:'apmicro', name:'AP Microeconomics',                     cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'AP'},
+  {id:'psychcp', name:'Psychology CP',                         cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'CP'},
+  {id:'econcp',  name:'Economics CP',                          cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'CP'},
+  {id:'soccp',   name:'Sociology CP',                          cr:5,   gr:[11,12],      dept:'History',         req:'social',  lvl:'CP'},
+  // WORLD LANGUAGE — Spanish
+  {id:'sp1',     name:'Spanish I',                             cr:5,   gr:[9,10],       dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'sp2cp',   name:'Spanish II CP',                         cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'sp2h',    name:'Spanish II Honors',                     cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'H'},
+  {id:'sp3cp',   name:'Spanish III CP',                        cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'sp3h',    name:'Spanish III Honors',                    cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'H'},
+  {id:'sp4h',    name:'Spanish IV Honors',                     cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'H'},
+  {id:'apspan',  name:'AP Spanish Language & Culture',         cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'AP'},
+  // French
+  {id:'fr1',     name:'French I',                              cr:5,   gr:[9,10],       dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'fr2cp',   name:'French II CP',                          cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'fr2h',    name:'French II Honors',                      cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'H'},
+  {id:'fr3cp',   name:'French III CP',                         cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'fr3h',    name:'French III Honors',                     cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'H'},
+  {id:'fr4h',    name:'French IV Honors',                      cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'H'},
+  {id:'apfren',  name:'AP French Language & Culture',          cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'AP'},
+  // German
+  {id:'de1',     name:'German I',                              cr:5,   gr:[9,10],       dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'de2cp',   name:'German II CP',                          cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'de2h',    name:'German II Honors',                      cr:5,   gr:[9,10,11],    dept:'World Language',  req:'language',lvl:'H'},
+  {id:'de3cp',   name:'German III CP',                         cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'de4h',    name:'German IV Honors',                      cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'H'},
+  {id:'apgerm',  name:'AP German Language & Culture',          cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'AP'},
+  // Latin
+  {id:'lat1',    name:'Latin I',                               cr:5,   gr:[9,10,11,12], dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'lat2cp',  name:'Latin II CP',                           cr:5,   gr:[9,10,11,12], dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'lat2h',   name:'Latin II Honors',                       cr:5,   gr:[9,10,11,12], dept:'World Language',  req:'language',lvl:'H'},
+  {id:'lat3cp',  name:'Latin III CP',                          cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'lat4h',   name:'Latin IV Honors',                       cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'H'},
+  {id:'aplat',   name:'AP Latin',                              cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'AP'},
+  // Mandarin
+  {id:'mand1',   name:'Mandarin I',                            cr:5,   gr:[9,10,11,12], dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'mand2cp', name:'Mandarin II CP',                        cr:5,   gr:[9,10,11,12], dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'mand3cp', name:'Mandarin III CP',                       cr:5,   gr:[10,11,12],   dept:'World Language',  req:'language',lvl:'CP'},
+  {id:'mand4h',  name:'Mandarin IV Honors',                    cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'H'},
+  {id:'apchin',  name:'AP Chinese Language & Culture',         cr:5,   gr:[11,12],      dept:'World Language',  req:'language',lvl:'AP'},
+  // VISUAL ARTS
+  {id:'foundart',name:'Foundations of Art',                    cr:5,   gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'art2',    name:'Visual Art II / Drawing & Painting',    cr:5,   gr:[10,11,12],   dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'advart',  name:'Advanced Art Honors',                   cr:5,   gr:[11,12],      dept:'Visual Arts',     req:'arts',    lvl:'H'},
+  {id:'ceramics',name:'Ceramics',                              cr:2.5, gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'photo',   name:'Photography',                           cr:5,   gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'graphdes',name:'Graphic Design',                        cr:2.5, gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'anim3d',  name:'3D Animation',                          cr:2.5, gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'moviemk', name:'Movie Making',                          cr:2.5, gr:[9,10,11,12], dept:'Visual Arts',     req:'arts',    lvl:'CP'},
+  {id:'apst2d',  name:'AP Studio Art: 2D Design',              cr:5,   gr:[11,12],      dept:'Visual Arts',     req:'arts',    lvl:'AP'},
+  {id:'apstdr',  name:'AP Studio Art: Drawing',                cr:5,   gr:[11,12],      dept:'Visual Arts',     req:'arts',    lvl:'AP'},
+  // MUSIC
+  {id:'choir',   name:'Concert Choir',                         cr:5,   gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'choirh',  name:'Choir Honors',                          cr:5,   gr:[10,11,12],   dept:'Music',           req:'arts',    lvl:'H'},
+  {id:'band',    name:'Concert Band',                          cr:5,   gr:[9],          dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'windense',name:'Wind Ensemble',                         cr:5,   gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'sympband',name:'Symphonic Band',                        cr:5,   gr:[10,11,12],   dept:'Music',           req:'arts',    lvl:'H'},
+  {id:'chamorch',name:'Chamber Orchestra',                     cr:5,   gr:[9],          dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'symporch',name:'Symphonic Orchestra',                   cr:5,   gr:[10,11],      dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'guitar1', name:'Guitar I',                              cr:2.5, gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'guitar2', name:'Guitar II',                             cr:2.5, gr:[10,11,12],   dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'piano1',  name:'Piano I',                               cr:2.5, gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'elecmsc', name:'Electronic Music Production',           cr:2.5, gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'percens', name:'Percussion Ensemble',                   cr:5,   gr:[9,10,11,12], dept:'Music',           req:'arts',    lvl:'CP'},
+  {id:'apmth',   name:'AP Music Theory',                       cr:5,   gr:[11,12],      dept:'Music',           req:'arts',    lvl:'AP'},
+  // THEATER
+  {id:'theat1',  name:'Theater Arts I',                        cr:5,   gr:[9,10,11,12], dept:'Theater',         req:'arts',    lvl:'CP'},
+  {id:'theat2',  name:'Theater Arts II',                       cr:5,   gr:[10,11,12],   dept:'Theater',         req:'arts',    lvl:'CP'},
+  {id:'advtheat',name:'Advanced Theater Workshop',             cr:5,   gr:[11,12],      dept:'Theater',         req:'arts',    lvl:'H'},
+  {id:'playwrit',name:'Playwriting',                           cr:2.5, gr:[10,11,12],   dept:'Theater',         req:'arts',    lvl:'CP'},
+  // HEALTH & PE
+  {id:'hlthwel', name:'Health and Wellness Management',        cr:2.5, gr:[9],          dept:'Health & PE',     req:'health',  lvl:'CP'},
+  {id:'baskin',  name:'Basics of Kinesiology',                 cr:2.5, gr:[9,10],       dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_team',name:'Kinesiology: Team Games',               cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_tm2', name:'Kinesiology: Team Games II',            cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_ind', name:'Kinesiology: Individual/Dual Games',    cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_fit', name:'Kinesiology: Fitness & Outdoor Pursuits',cr:2.5,gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_rhy', name:'Kinesiology: Rhythmic Movement',        cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_ex',  name:'Kinesiology: Fitness & Exercise',       cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'pe',      lvl:'CP'},
+  {id:'kin_fhe', name:'Kinesiology: Fitness for Health Enhancement',cr:2.5,gr:[10,11,12],dept:'Health & PE',    req:'pe',      lvl:'CP'},
+  {id:'coaching',name:'Foundations of Coaching & Officiating', cr:2.5, gr:[10,11,12],   dept:'Health & PE',     req:'elective',lvl:'CP'},
+  {id:'srhlth',  name:'Senior Health Seminar',                 cr:2.5, gr:[12],         dept:'Health & PE',     req:'elective',lvl:'CP'},
+  {id:'childdev',name:'Child Development',                     cr:2.5, gr:[9,10,11,12], dept:'Health & PE',     req:'elective',lvl:'CP'},
+  // BUSINESS
+  {id:'introb',  name:'Introduction to Business & DECA',       cr:2.5, gr:[9,10,11,12], dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'mktg',    name:'Principles of Marketing',               cr:2.5, gr:[9,10,11,12], dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'mgmt',    name:'Principles of Management',              cr:2.5, gr:[9,10,11,12], dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'acctng',  name:'Accounting',                            cr:2.5, gr:[9,10,11,12], dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'sportsmk',name:'Sports & Entertainment Marketing',      cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'laweth',  name:'Law & Ethics in Business',              cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'perfin',  name:'Personal Financial Management',         cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'yrbkdes', name:'Yearbook Design',                       cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'CP'},
+  {id:'advmgmt', name:'Advanced Management',                   cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'H'},
+  {id:'socmktg', name:'Social Media Marketing',                cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'H'},
+  {id:'salescb', name:'Sales & Consumer Behavior',             cr:2.5, gr:[10,11,12],   dept:'Business',        req:'elective',lvl:'H'},
+  {id:'deentrep',name:'DE Entrepreneurship',                   cr:2.5, gr:[11,12],      dept:'Business',        req:'elective',lvl:'DE'},
+  {id:'demoney', name:'DE Money Matters',                      cr:2.5, gr:[11,12],      dept:'Business',        req:'elective',lvl:'DE'},
+  {id:'deteach', name:'DE Discovering Teaching',               cr:2.5, gr:[11,12],      dept:'Health & PE',     req:'elective',lvl:'DE'},
+  {id:'dechildgd',name:'DE Child Growth & Development',        cr:2.5, gr:[11,12],      dept:'Health & PE',     req:'elective',lvl:'DE'},
+];
+
+/* ================================================================
+   20 PATHWAYS
+================================================================ */
+const PATHWAYS={
+  stem:{
+    name:'STEM & Engineering',icon:'⚙️',color:['#0f4c75','#1b6ca8'],
+    desc:'Design, build, and test the systems that power the modern world. You love physics, applied math, and seeing how everything fits together mechanically.',
+    keyAPs:['AP Calculus AB/BC','AP Physics 1','AP Chemistry','AP Statistics','AP Computer Science A'],
+    plan:{
+      9: ['English 9 Honors','Algebra 2 Honors','Biology Honors','Modern World History Honors','Health and Wellness Management','Spanish I','Introduction to Engineering'],
+      10:['English 10 Honors','Pre-Calculus Honors','Chemistry Honors','US History I Honors','Kinesiology: Fitness & Exercise','Spanish II Honors','Engineering Design'],
+      11:['AP English Language & Composition','AP Calculus AB','AP Physics 1','AP United States History','Kinesiology: Fitness & Exercise','Spanish III Honors','AP Computer Science A'],
+      12:['AP English Literature & Composition','AP Calculus BC','AP Chemistry','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Statistics','AP Physics C: Mechanics']
+    }
+  },
+  cs:{
+    name:'Computer Science & Software',icon:'💻',color:['#4a0e8f','#7c3aed'],
+    desc:'Build the apps, algorithms, and systems of tomorrow. You think in logic, love debugging, and see code as both science and creative expression.',
+    keyAPs:['AP Computer Science A','AP Calculus AB/BC','AP Statistics','AP Physics 1'],
+    plan:{
+      9: ['English 9 Honors','Algebra 2 Honors','Biology Honors','Modern World History Honors','Health and Wellness Management','Spanish I','Introduction to Computer Science'],
+      10:['English 10 Honors','AP Pre-Calculus','Chemistry CP','US History I Honors','Kinesiology: Team Games','AP Computer Science A','Spanish II Honors'],
+      11:['AP English Language & Composition','AP Calculus AB','Physics Honors','AP United States History','Kinesiology: Fitness & Exercise','AP Statistics','Spanish III Honors'],
+      12:['AP English Literature & Composition','AP Calculus BC','AP Physics 1','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Macroeconomics','Web Page Development']
+    }
+  },
+  math:{
+    name:'Mathematics & Data Science',icon:'📐',color:['#1a3a6b','#2563eb'],
+    desc:'Pure math, statistics, and patterns hidden in data fascinate you. You love abstract reasoning and turning numbers into real-world insights.',
+    keyAPs:['AP Calculus AB','AP Calculus BC','AP Statistics','AP Computer Science A','AP Physics 1'],
+    plan:{
+      9: ['English 9 Honors','Algebra 2 Honors','Biology Honors','Modern World History Honors','Health and Wellness Management','Spanish I','Introduction to Computer Science'],
+      10:['English 10 Honors','AP Pre-Calculus','Chemistry Honors','US History I Honors','Kinesiology: Team Games','AP Statistics','Spanish II Honors'],
+      11:['AP English Language & Composition','AP Calculus AB','Physics Honors','AP United States History','Kinesiology: Fitness & Exercise','AP Computer Science A','Spanish III Honors'],
+      12:['AP English Literature & Composition','AP Calculus BC','AP Physics 1','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Macroeconomics','AP Psychology']
+    }
+  },
+  premed:{
+    name:'Natural Sciences & Pre-Medicine',icon:'🔬',color:['#065f46','#059669'],
+    desc:'Driven to understand living systems and heal people. Biology and chemistry are your strengths and healthcare or research is your calling.',
+    keyAPs:['AP Biology','AP Chemistry','AP Statistics','AP Psychology','AP Environmental Science'],
+    plan:{
+      9: ['English 9 Honors','Geometry Honors','Biology Honors','Modern World History Honors','Health and Wellness Management','Spanish I','Basics of Kinesiology'],
+      10:['English 10 Honors','Algebra 2 Honors','Chemistry Honors','US History I Honors','Kinesiology: Individual/Dual Games','Spanish II Honors','AP Environmental Science'],
+      11:['AP English Language & Composition','Pre-Calculus Honors','AP Biology','AP United States History','Kinesiology: Fitness & Exercise','AP Statistics','Spanish III Honors'],
+      12:['AP English Literature & Composition','AP Calculus AB','AP Chemistry','AP US Government & Politics','Kinesiology: Fitness & Exercise','Anatomy & Physiology','AP Psychology']
+    }
+  },
+  enviro:{
+    name:'Environmental Science & Sustainability',icon:'🌿',color:['#14532d','#16a34a'],
+    desc:'You want to protect the planet. Ecology, climate policy, and the intersection of science and social impact drive everything you do.',
+    keyAPs:['AP Environmental Science','AP Biology','AP Chemistry','AP Statistics','AP US Gov & Politics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology Honors','Modern World History Honors','Health and Wellness Management','Spanish I','Introduction to Engineering'],
+      10:['English 10 Honors','Algebra 2 Honors','Chemistry Honors','AP World History: Modern','Kinesiology: Fitness & Outdoor Pursuits','Spanish II Honors','AP Environmental Science'],
+      11:['AP English Language & Composition','Pre-Calculus Honors','AP Biology','AP United States History','Kinesiology: Fitness & Outdoor Pursuits','AP Statistics','Biotechnology'],
+      12:['AP English Literature & Composition','AP Calculus AB','AP Chemistry','AP US Government & Politics','Kinesiology: Fitness & Outdoor Pursuits','AP Psychology','Forensic Science']
+    }
+  },
+  humanities:{
+    name:'Humanities & Classic Literature',icon:'📖',color:['#7c2d12','#c2410c'],
+    desc:'Ideas, history, and the written word are your currency. Analysis, debate, and the enduring questions of civilization are where you live.',
+    keyAPs:['AP English Language & Composition','AP English Literature & Composition','AP European History','AP Psychology','AP US Gov & Politics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History Honors','Health and Wellness Management','Spanish I','Basics of Kinesiology'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Individual/Dual Games','Spanish II Honors','Film and Literature Honors'],
+      11:['AP English Language & Composition','Trigonometry & Advanced Algebra','Physics CP','AP United States History','Kinesiology: Rhythmic Movement','AP Psychology','Spanish III Honors'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP European History','Spanish IV Honors']
+    }
+  },
+  journalism:{
+    name:'Journalism & Creative Writing',icon:'✍️',color:['#92400e','#d97706'],
+    desc:'Words are your superpower. Reporting news, crafting fiction, or writing opinion — you live to tell stories that change how people think.',
+    keyAPs:['AP English Language & Composition','AP English Literature & Composition','AP Psychology','AP US Gov & Politics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Journalism I'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Team Games','Journalism II','Creative Writing I Honors'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','Journalism III','Creative Writing II Honors'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','Journalism IV','Film and Literature Honors']
+    }
+  },
+  film:{
+    name:'Film, Photography & Digital Media',icon:'🎬',color:['#292524','#78716c'],
+    desc:'You see the world through a lens. Visual storytelling, cinematography, editing, and photography are where you come completely alive.',
+    keyAPs:['AP English Language & Composition','AP Studio Art: 2D Design','AP Environmental Science','AP Psychology'],
+    plan:{
+      9: ['English 9 CP','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Photography'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Individual/Dual Games','Film and Literature Honors','Movie Making'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Studio Art: 2D Design','3D Animation'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Studio Art: Drawing','Social Media Marketing']
+    }
+  },
+  visual_arts:{
+    name:'Visual Arts & Design',icon:'🎨',color:['#701a75','#a21caf'],
+    desc:'You think in images, shapes, and color. From fine art to graphic design, you create things people stop and stare at.',
+    keyAPs:['AP Studio Art: 2D Design','AP Studio Art: Drawing','AP English Language & Composition','AP Psychology'],
+    plan:{
+      9: ['English 9 CP','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Foundations of Art'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Individual/Dual Games','Visual Art II / Drawing & Painting','Ceramics'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','Advanced Art Honors','Graphic Design'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Studio Art: 2D Design','AP Studio Art: Drawing']
+    }
+  },
+  theater:{
+    name:'Performing Arts & Theater',icon:'🎭',color:['#831843','#be185d'],
+    desc:'The stage is where you belong. Acting, directing, and production are your world — you believe live performance has the power to transform people.',
+    keyAPs:['AP English Language & Composition','AP English Literature & Composition','AP Psychology','AP US Gov & Politics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Theater Arts I'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Rhythmic Movement','Theater Arts II','Concert Choir'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Rhythmic Movement','Advanced Theater Workshop','AP Psychology'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Rhythmic Movement','Playwriting','Concert Choir']
+    }
+  },
+  music:{
+    name:'Music & Audio Production',icon:'🎵',color:['#3b0764','#6d28d9'],
+    desc:'Music is how you understand the world. Performing, composing, or producing — you want sound at the absolute center of your life.',
+    keyAPs:['AP Music Theory','AP English Language & Composition','AP Psychology','AP Statistics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Concert Choir'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Rhythmic Movement','Spanish II CP','Electronic Music Production'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Rhythmic Movement','AP Music Theory','Guitar I'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Rhythmic Movement','Choir Honors','Guitar II']
+    }
+  },
+  psych:{
+    name:'Social Sciences & Psychology',icon:'🧠',color:['#164e63','#0891b2'],
+    desc:'Why do people think, feel, and behave the way they do? Research, data, and human complexity are your obsession.',
+    keyAPs:['AP Psychology','AP US Gov & Politics','AP European History','AP Macroeconomics','AP Statistics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History Honors','Health and Wellness Management','Spanish I','Basics of Kinesiology'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Team Games','Introduction to Computer Science','Spanish II Honors'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Psychology','Spanish III CP'],
+      12:['AP English Literature & Composition','AP Statistics','Anatomy & Physiology','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP European History','Sociology CP']
+    }
+  },
+  pols:{
+    name:'Political Science & Law',icon:'⚖️',color:['#1e3a5f','#1d4ed8'],
+    desc:'You believe in justice, debate, and the power of policy to change lives. Law, government, history, and persuasion are your tools.',
+    keyAPs:['AP US Gov & Politics','AP United States History','AP European History','AP Macroeconomics','AP Psychology'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History Honors','Health and Wellness Management','Spanish I','Introduction to Business & DECA'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Team Games','AP Psychology','Spanish II Honors'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Macroeconomics','Spanish III Honors'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP European History','Law & Ethics in Business']
+    }
+  },
+  econ:{
+    name:'Economics & Finance',icon:'📊',color:['#713f12','#d97706'],
+    desc:'Markets, money, and the forces that shape economies. Quantitative thinking and understanding financial systems excite you.',
+    keyAPs:['AP Macroeconomics','AP Microeconomics','AP Statistics','AP US Gov & Politics','AP Calculus AB'],
+    plan:{
+      9: ['English 9 Honors','Geometry Honors','Biology CP','Modern World History Honors','Health and Wellness Management','Spanish I','Principles of Marketing'],
+      10:['English 10 Honors','Algebra 2 Honors','Chemistry CP','AP World History: Modern','Kinesiology: Team Games','AP Psychology','Accounting'],
+      11:['AP English Language & Composition','Pre-Calculus Honors','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Macroeconomics','AP Statistics'],
+      12:['AP English Literature & Composition','AP Calculus AB','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Microeconomics','Personal Financial Management']
+    }
+  },
+  business:{
+    name:'Entrepreneurship & Marketing',icon:'🚀',color:['#14532d','#15803d'],
+    desc:'You see opportunity everywhere. Startups, marketing campaigns, and leadership are your world — you want to build something real.',
+    keyAPs:['AP Macroeconomics','AP US Gov & Politics','AP Statistics','AP English Language & Composition'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Principles of Marketing','Principles of Management'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Team Games','Sports & Entertainment Marketing','Social Media Marketing'],
+      11:['AP English Language & Composition','AP Statistics','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Macroeconomics','Accounting'],
+      12:['AP English Literature & Composition','AP Calculus AB','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','DE Entrepreneurship','Advanced Management']
+    }
+  },
+  languages:{
+    name:'World Languages & Global Studies',icon:'🌍',color:['#0c4a6e','#0369a1'],
+    desc:'The world beyond Westford calls to you. Language, culture, diplomacy, and linguistics fuel your curiosity about the human family.',
+    keyAPs:['AP Spanish/French/German/Latin/Chinese','AP European History','AP World History: Modern','AP US Gov & Politics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History Honors','Health and Wellness Management','Spanish I','Latin I'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','AP World History: Modern','Kinesiology: Individual/Dual Games','Spanish II Honors','Latin II Honors'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','AP Spanish Language & Culture','Latin III CP'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP French Language & Culture','AP European History']
+    }
+  },
+  health_kin:{
+    name:'Health, Kinesiology & Sports Medicine',icon:'🏃',color:['#7f1d1d','#dc2626'],
+    desc:'The human body, movement, and wellness are your obsession. Training athletes, working in sports medicine, or promoting public health drives you.',
+    keyAPs:['AP Biology','AP Psychology','AP Statistics','AP Environmental Science'],
+    plan:{
+      9: ['English 9 CP','Geometry CP','Biology Honors','Modern World History CP','Health and Wellness Management','Spanish I','Basics of Kinesiology'],
+      10:['English 10 CP','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Team Games','AP Psychology','Foundations of Coaching & Officiating'],
+      11:['AP English Language & Composition','Pre-Calculus CP','AP Biology','AP United States History','Kinesiology: Fitness & Exercise','AP Statistics','Child Development'],
+      12:['English 12 CP','Trigonometry & Advanced Algebra','Anatomy & Physiology','AP US Government & Politics','Senior Health Seminar','Kinesiology: Fitness for Health Enhancement','Forensic Science']
+    }
+  },
+  education:{
+    name:'Education & Child Development',icon:'🍎',color:['#134e4a','#0d9488'],
+    desc:'You make a difference one person at a time. Teaching, mentoring, counseling, and child development light you up like nothing else.',
+    keyAPs:['AP Psychology','AP English Language & Composition','AP US Gov & Politics','AP Statistics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Child Development'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I Honors','Kinesiology: Team Games','AP Psychology','Spanish II Honors'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Team Games II','DE Discovering Teaching','Spanish III CP'],
+      12:['AP English Literature & Composition','AP Statistics','Anatomy & Physiology','AP US Government & Politics','Senior Health Seminar','DE Child Growth & Development','Sociology CP']
+    }
+  },
+  architecture:{
+    name:'Architecture & Spatial Design',icon:'🏛️',color:['#27272a','#52525b'],
+    desc:'You see buildings, cities, and spaces as art. Architecture is where your love of drawing, engineering, and human experience converge.',
+    keyAPs:['AP Studio Art: 2D Design','AP Calculus AB','AP Physics 1','AP English Language & Composition'],
+    plan:{
+      9: ['English 9 CP','Geometry Honors','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Foundations of Art'],
+      10:['English 10 Honors','Algebra 2 Honors','Chemistry CP','US History I CP','Kinesiology: Team Games','Visual Art II / Drawing & Painting','Introduction to Engineering'],
+      11:['AP English Language & Composition','Pre-Calculus Honors','Physics Honors','AP United States History','Kinesiology: Fitness & Exercise','Advanced Art Honors','Engineering Design'],
+      12:['AP English Literature & Composition','AP Calculus AB','AP Physics 1','AP US Government & Politics','Kinesiology: Fitness & Exercise','AP Studio Art: 2D Design','AP Statistics']
+    }
+  },
+  comms:{
+    name:'Communications & Media',icon:'📡',color:['#312e81','#4338ca'],
+    desc:'You communicate, persuade, and connect. On air, on stage, or online — you use media and messaging to move people and shape narratives.',
+    keyAPs:['AP English Language & Composition','AP English Literature & Composition','AP Psychology','AP Macroeconomics'],
+    plan:{
+      9: ['English 9 Honors','Geometry CP','Biology CP','Modern World History CP','Health and Wellness Management','Spanish I','Journalism I'],
+      10:['English 10 Honors','Algebra 2 CP','Chemistry CP','US History I CP','Kinesiology: Team Games','Journalism II','Public Speaking'],
+      11:['AP English Language & Composition','Pre-Calculus CP','Physics CP','AP United States History','Kinesiology: Fitness & Exercise','Journalism III','AP Psychology'],
+      12:['AP English Literature & Composition','AP Statistics','AP Environmental Science','AP US Government & Politics','Kinesiology: Fitness & Exercise','Journalism IV','Social Media Marketing']
+    }
+  }
+};
+
+/* ================================================================
+   20 QUIZ QUESTIONS
+================================================================ */
+const QUESTIONS=[
+  {q:"What do you naturally do in your free time?",opts:[
+    {t:"Build or tinker — electronics, engines, mechanisms",s:{stem:3,architecture:1}},
+    {t:"Code, game, or explore how software works",s:{cs:3,math:1}},
+    {t:"Draw, sketch, photograph, or design things",s:{visual_arts:3,film:2,architecture:1}},
+    {t:"Write stories, essays, poems, or journal entries",s:{journalism:3,humanities:2}},
+    {t:"Play, listen to, or produce music obsessively",s:{music:3,theater:1}},
+    {t:"Watch films, make videos, or act in productions",s:{theater:2,film:2,comms:1}},
+    {t:"Read about history, politics, or current events",s:{pols:2,humanities:2}},
+    {t:"Play sports, exercise, or spend time outdoors",s:{health_kin:3,enviro:1}}
+  ]},
+  {q:"Which WA course would you sign up for first?",opts:[
+    {t:"Introduction to Engineering",s:{stem:3,architecture:1}},
+    {t:"AP Computer Science A",s:{cs:3,math:1}},
+    {t:"AP Biology or AP Chemistry",s:{premed:3,enviro:1}},
+    {t:"AP Studio Art or Photography",s:{visual_arts:3,film:1}},
+    {t:"Theater Arts or Concert Choir",s:{theater:3,music:2}},
+    {t:"AP Psychology",s:{psych:3,education:2}},
+    {t:"Journalism I",s:{journalism:3,comms:2}},
+    {t:"Principles of Marketing or Accounting",s:{business:3,econ:1}}
+  ]},
+  {q:"Where do you picture yourself working in 10 years?",opts:[
+    {t:"Engineering firm, research lab, or tech startup",s:{stem:3,cs:2}},
+    {t:"Hospital, clinic, or pharmaceutical research",s:{premed:3,health_kin:1}},
+    {t:"Courtroom, government office, or policy think tank",s:{pols:3,econ:1}},
+    {t:"Art studio, architecture firm, or design agency",s:{visual_arts:2,architecture:3}},
+    {t:"Concert hall, theater, recording studio, or film set",s:{theater:2,music:2,film:1}},
+    {t:"Newsroom, magazine, podcast, or production company",s:{journalism:2,comms:2}},
+    {t:"Startup, marketing agency, or financial firm",s:{business:2,econ:2}},
+    {t:"Classroom, community org, conservation site, or abroad",s:{education:2,languages:2,enviro:1}}
+  ]},
+  {q:"How do you feel about math?",opts:[
+    {t:"I love it — abstract proofs and hard problems excite me",s:{math:3,cs:2,stem:1}},
+    {t:"I like applied math — formulas that solve real problems",s:{stem:2,premed:1,econ:1}},
+    {t:"Statistics and data appeal more than pure calculus",s:{math:2,econ:2,psych:1}},
+    {t:"I'm okay at it but prefer subjects without equations",s:{humanities:1,visual_arts:1,theater:1}},
+    {t:"I want to take the hardest math sequence possible",s:{math:3,stem:2,cs:1}},
+    {t:"Math makes more sense to me in business/finance context",s:{econ:2,business:1}}
+  ]},
+  {q:"Which best describes how you express yourself creatively?",opts:[
+    {t:"Code, systems, and logical architecture",s:{cs:3,math:2}},
+    {t:"Writing — essays, fiction, scripts, or poetry",s:{journalism:3,humanities:2,comms:1}},
+    {t:"Visual art, photography, or graphic design",s:{visual_arts:3,film:2}},
+    {t:"Music — performing, composing, or producing",s:{music:3}},
+    {t:"Acting, directing, or live performance",s:{theater:3,comms:1}},
+    {t:"Building or designing physical objects and spaces",s:{stem:2,architecture:3}},
+    {t:"Debating and constructing persuasive arguments",s:{pols:3,comms:2}},
+    {t:"I'm honestly not sure I'm a \"creative\" person",s:{math:1,econ:1,health_kin:1}}
+  ]},
+  {q:"What's your relationship with technology?",opts:[
+    {t:"I want to build what's next — AI, apps, software systems",s:{cs:3,math:1}},
+    {t:"It's an engineering tool to solve physical problems",s:{stem:3,architecture:1}},
+    {t:"I use it to create — edit photos, produce music, make films",s:{film:3,music:2,visual_arts:1}},
+    {t:"I use it mostly for research, writing, and communication",s:{humanities:2,journalism:1}},
+    {t:"Social media, marketing, and digital platforms fascinate me",s:{comms:3,business:2}},
+    {t:"More interested in how tech shapes society and policy",s:{pols:2,psych:1,enviro:1}},
+    {t:"I honestly prefer being active outdoors over screens",s:{health_kin:3,enviro:1}},
+    {t:"Biotech and medical technology draw me in",s:{premed:3,stem:1}}
+  ]},
+  {q:"What do you read or watch for fun?",opts:[
+    {t:"Sci-fi, engineering content, or tech deep-dives",s:{stem:2,cs:2}},
+    {t:"Classic literature, literary fiction, or poetry",s:{humanities:3,journalism:1}},
+    {t:"Political docs, news analysis, or court/government shows",s:{pols:3,comms:1}},
+    {t:"Art, architecture, film reviews, or design content",s:{visual_arts:2,architecture:2,film:1}},
+    {t:"True crime, psychology, or behavior science",s:{psych:3,premed:1}},
+    {t:"Business/entrepreneurship podcasts or case studies",s:{business:3,econ:2}},
+    {t:"Foreign language films, travel content, or cultural docs",s:{languages:3}},
+    {t:"Sports, fitness, wellness, or nature documentaries",s:{health_kin:2,enviro:2}}
+  ]},
+  {q:"In a group project, you naturally become...",opts:[
+    {t:"The engineer or coder who builds the actual product",s:{stem:2,cs:2}},
+    {t:"The researcher who finds and interprets the evidence",s:{premed:2,humanities:1,psych:1}},
+    {t:"The writer who crafts the narrative and argument",s:{journalism:2,humanities:2}},
+    {t:"The designer who makes everything look exactly right",s:{visual_arts:2,film:1,architecture:1}},
+    {t:"The spokesperson who presents to the audience",s:{comms:2,theater:1,pols:1}},
+    {t:"The strategist who plans the approach and motivates the team",s:{business:2,econ:1}},
+    {t:"The mediator who keeps the team communicating",s:{education:2,psych:2}},
+    {t:"The data analyst who runs the numbers",s:{math:2,econ:1}}
+  ]},
+  {q:"Which global problem would you most want to tackle with your career?",opts:[
+    {t:"Advancing computing, AI, and digital infrastructure",s:{cs:3,stem:1}},
+    {t:"Curing disease and improving global health outcomes",s:{premed:3,health_kin:1}},
+    {t:"Fighting climate change and protecting ecosystems",s:{enviro:3}},
+    {t:"Justice, policy reform, and functional democracy",s:{pols:3,humanities:1}},
+    {t:"Access to arts, culture, and quality storytelling",s:{humanities:2,journalism:1,theater:1}},
+    {t:"Economic systems that reduce poverty and inequality",s:{econ:2,business:1}},
+    {t:"Connecting people across language and cultural divides",s:{languages:3,education:1}},
+    {t:"Mental health and overall human well-being",s:{psych:3,education:2}}
+  ]},
+  {q:"How do you learn best?",opts:[
+    {t:"Building and experimenting in a lab or workshop",s:{stem:2,premed:1,enviro:1}},
+    {t:"Working through logic and code step by step",s:{math:2,cs:2}},
+    {t:"Reading deeply and forming my own independent analysis",s:{humanities:2,pols:1}},
+    {t:"Watching, sketching, and observing visually",s:{visual_arts:2,architecture:2}},
+    {t:"Listening, rehearsing, and performing",s:{music:2,theater:2}},
+    {t:"Conversation, seminar discussion, and live debate",s:{pols:2,comms:2}},
+    {t:"Working with and for other people",s:{education:2,health_kin:1}},
+    {t:"Through data, patterns, and data visualizations",s:{math:2,econ:2}}
+  ]},
+  {q:"Which activity would you enjoy most as a class project?",opts:[
+    {t:"Design and build a working robot or electronic circuit",s:{stem:3}},
+    {t:"Write and debug code to solve a real-world problem",s:{cs:3}},
+    {t:"Conduct a biology or chemistry experiment in the lab",s:{premed:3,enviro:1}},
+    {t:"Shoot and edit a short documentary film",s:{film:3,journalism:1}},
+    {t:"Rehearse and perform in a theater production",s:{theater:3,music:1}},
+    {t:"Pitch a startup idea in a business competition",s:{business:3,econ:1}},
+    {t:"Research a policy issue and present a brief",s:{pols:3,comms:1}},
+    {t:"Create a portfolio of original artwork or photographs",s:{visual_arts:3,film:1}}
+  ]},
+  {q:"Which describes your thinking style?",opts:[
+    {t:"Systematic — I break everything into logical steps",s:{cs:2,math:2,stem:1}},
+    {t:"Analytical — I trust data, evidence, and research above all",s:{math:1,econ:2,psych:1}},
+    {t:"Empathetic — I read people and sense what they need",s:{education:3,psych:2,health_kin:1}},
+    {t:"Visual — I think in images, space, and composition",s:{visual_arts:2,architecture:2,film:1}},
+    {t:"Verbal — I'm sharpest when writing or constructing an argument",s:{humanities:2,comms:2,journalism:1}},
+    {t:"Curious — I need to know how absolutely everything works",s:{stem:2,premed:2,enviro:1}},
+    {t:"Strategic — I always plan several moves ahead",s:{business:2,pols:2}},
+    {t:"Rhythmic — I experience the world through sound and music",s:{music:3}}
+  ]},
+  {q:"If you started a club at WA, what would it be?",opts:[
+    {t:"Science Olympiad or Engineering Design Team",s:{stem:3,math:1}},
+    {t:"Debate Team or Mock Trial",s:{pols:3,comms:2}},
+    {t:"Photography Club or Film Club",s:{film:3,visual_arts:1}},
+    {t:"Environmental Action or Sustainability Club",s:{enviro:3}},
+    {t:"DECA Business Competition Club",s:{business:3,econ:2}},
+    {t:"Mental Health Awareness or Peer Support Club",s:{psych:3,education:2}},
+    {t:"International Language & Culture Exchange",s:{languages:3}},
+    {t:"Athletic Leadership or Student Coaching Club",s:{health_kin:3}}
+  ]},
+  {q:"What does your ideal college major sound like?",opts:[
+    {t:"Mechanical, Civil, or Electrical Engineering",s:{stem:3,architecture:1}},
+    {t:"Computer Science or Software Engineering",s:{cs:3,math:1}},
+    {t:"Biology, Chemistry, or Pre-Medicine",s:{premed:3,enviro:1}},
+    {t:"English Literature, Philosophy, or History",s:{humanities:3,journalism:1}},
+    {t:"Architecture, Urban Planning, or Landscape Architecture",s:{architecture:3}},
+    {t:"Communications, Film Studies, or Journalism",s:{comms:2,journalism:2,film:1}},
+    {t:"Psychology, Sociology, or Education",s:{psych:2,education:2}},
+    {t:"Business, Finance, or Economics",s:{business:2,econ:2}}
+  ]},
+  {q:"How comfortable are you performing or speaking publicly?",opts:[
+    {t:"I thrive on stage — I come alive in front of people",s:{theater:3,comms:2}},
+    {t:"I love debate and presenting arguments — I'm persuasive",s:{pols:2,comms:2,journalism:1}},
+    {t:"Prefer small groups or one-on-one — less performance",s:{education:2,psych:1}},
+    {t:"I express myself better through writing or visual work",s:{journalism:1,visual_arts:1,film:1}},
+    {t:"I communicate best through code or technical presentations",s:{cs:2,stem:1}},
+    {t:"I'm more comfortable leading from behind the scenes",s:{film:2,music:1,business:1}},
+    {t:"Musical performance — singing or playing — is my comfort zone",s:{music:3,theater:1}},
+    {t:"Coaching or teaching feels natural — I lead by example",s:{health_kin:2,education:2}}
+  ]},
+  {q:"Where would you thrive working every day?",opts:[
+    {t:"Lab, maker-space, or engineering workshop",s:{stem:2,premed:1,enviro:1}},
+    {t:"Quiet desk setup with a great coding environment",s:{cs:3,math:1}},
+    {t:"Art studio, recording space, or film set",s:{visual_arts:1,music:2,film:2}},
+    {t:"Courtroom, embassy, or policy office",s:{pols:3}},
+    {t:"Classroom, counseling center, or community space",s:{education:3,psych:1}},
+    {t:"Trading floor, startup office, or financial firm",s:{econ:3,business:2}},
+    {t:"Outdoors — field sites, trails, or conservation areas",s:{enviro:3,health_kin:1}},
+    {t:"Gym, training facility, or athletic complex",s:{health_kin:3}}
+  ]},
+  {q:"What do you want your work to ultimately produce?",opts:[
+    {t:"Physical systems or products people can use",s:{stem:3,architecture:2}},
+    {t:"Software, algorithms, or data insights",s:{cs:3,math:2}},
+    {t:"Scientific knowledge that advances medicine or ecology",s:{premed:3,enviro:2}},
+    {t:"Stories and arguments that change how people think",s:{humanities:2,journalism:2,comms:1}},
+    {t:"Beautiful things — art, music, or architecture",s:{visual_arts:2,music:2,architecture:1}},
+    {t:"Unforgettable experiences — shows, films, performances",s:{theater:2,film:2}},
+    {t:"Policies and social systems that improve people's lives",s:{pols:3,education:1}},
+    {t:"Markets, businesses, and economic opportunity",s:{business:2,econ:2}}
+  ]},
+  {q:"If you had a gap year, how would you use it?",opts:[
+    {t:"Intern at a tech company, lab, or engineering firm",s:{cs:2,stem:2,premed:1}},
+    {t:"Record music, write, or perform in shows",s:{music:3,theater:2,journalism:1}},
+    {t:"Document the world through photography or filmmaking",s:{film:3,journalism:1}},
+    {t:"Train intensively for a sport or coach youth athletes",s:{health_kin:3}},
+    {t:"Launch a small business or passion project",s:{business:3,econ:1}},
+    {t:"Do environmental research or conservation fieldwork",s:{enviro:3}},
+    {t:"Travel and fully immerse in a foreign language and culture",s:{languages:3,education:1}},
+    {t:"Volunteer in schools, clinics, or community organizations",s:{education:2,health_kin:1,psych:1}}
+  ]},
+  {q:"What kind of impact do you most want to have?",opts:[
+    {t:"Invent things that fundamentally change how the world works",s:{stem:3,cs:2}},
+    {t:"Save and extend lives through medicine or healthcare",s:{premed:3,health_kin:1}},
+    {t:"Help young people discover who they are and grow",s:{education:3,psych:1}},
+    {t:"Create art, music, or stories that outlast you",s:{visual_arts:2,music:2,theater:1}},
+    {t:"Build a business that creates opportunity for others",s:{business:3,econ:1}},
+    {t:"Protect the planet for the generations that follow",s:{enviro:3}},
+    {t:"Shape laws, elections, or public opinion",s:{pols:3,comms:1}},
+    {t:"Connect cultures through language and shared stories",s:{languages:3,humanities:1}}
+  ]},
+  {q:"Which phrase feels most like you?",opts:[
+    {t:"I stay up late debugging code — and genuinely love it",s:{cs:3,math:1}},
+    {t:"I've kept a journal, blog, or Substack for years",s:{journalism:3,humanities:2}},
+    {t:"I already know the causes I'm willing to fight for",s:{pols:3,enviro:2}},
+    {t:"My sketchbook or camera literally goes everywhere with me",s:{visual_arts:2,film:2,architecture:1}},
+    {t:"I know in my gut I want to heal people or improve movement",s:{premed:3,health_kin:2}},
+    {t:"I can talk to anyone, anywhere — people just open up to me",s:{comms:3,education:2}},
+    {t:"I could spend all day in a lab or out in nature",s:{stem:2,enviro:2,premed:1}},
+    {t:"I know useful phrases in 3+ languages just for fun",s:{languages:3,humanities:1}}
+  ]}
+];
+
+/* ================================================================
+   STATE
+================================================================ */
+let qIdx=0;
+const answers=new Array(QUESTIONS.length).fill(null);
+let scores={};
+const plan={9:{s1:[],s2:[]},10:{s1:[],s2:[]},11:{s1:[],s2:[]},12:{s1:[],s2:[]}};
+let activeGrade=9;
+let catFilter='All';
+
+/* ================================================================
+   NAVIGATION
+================================================================ */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  const map={home:0,quiz:1,planner:2,catalog:3};
+  const btns=document.querySelectorAll('.nav-btn');
+  if(map[id]!==undefined)btns[map[id]].classList.add('active');
+  if(id==='planner')renderPlanner();
+  if(id==='catalog')renderCatalog();
+  if(id==='quiz')renderQuestion();
+}
+
+/* ================================================================
+   QUIZ
+================================================================ */
+function renderQuestion(){
+  const q=QUESTIONS[qIdx];
+  const pct=Math.round((qIdx+1)/QUESTIONS.length*100);
+  document.getElementById('qprogress').style.width=pct+'%';
+  document.getElementById('qlabel').textContent=`Question ${qIdx+1} of ${QUESTIONS.length}`;
+  document.getElementById('qback').disabled=(qIdx===0);
+  document.getElementById('qnext').disabled=(answers[qIdx]===null);
+  document.getElementById('qnext').textContent=qIdx===QUESTIONS.length-1?'See My Results →':'Next →';
+  document.getElementById('qcard').innerHTML=`
+    <div class="q-num">Question ${qIdx+1} of ${QUESTIONS.length}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="q-opts">${q.opts.map((o,i)=>`
+      <button class="q-opt${answers[qIdx]===i?' selected':''}" onclick="selectOpt(${i})">${o.t}</button>
+    `).join('')}</div>`;
+}
+
+function selectOpt(i){
+  answers[qIdx]=i;
+  document.querySelectorAll('.q-opt').forEach((b,j)=>b.classList.toggle('selected',j===i));
+  document.getElementById('qnext').disabled=false;
+}
+
+function quizNext(){
+  if(answers[qIdx]===null)return;
+  if(qIdx<QUESTIONS.length-1){qIdx++;renderQuestion();}
+  else{calcResults();showScreen('results');}
+}
+
+function quizBack(){
+  if(qIdx>0){qIdx--;renderQuestion();}
+}
+
+function retakeQuiz(){
+  qIdx=0;answers.fill(null);scores={};
+  showScreen('quiz');
+}
+
+function calcResults(){
+  scores={};
+  Object.keys(PATHWAYS).forEach(k=>scores[k]=0);
+  QUESTIONS.forEach((q,qi)=>{
+    const a=answers[qi];
+    if(a===null)return;
+    Object.entries(q.opts[a].s).forEach(([k,v])=>{if(scores[k]!==undefined)scores[k]+=v;});
+  });
+  renderResults();
+}
+
+function renderResults(){
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0][1]||1;
+  const top=sorted[0][0];
+  const p=PATHWAYS[top];
+
+  document.getElementById('top-pathway-card').innerHTML=`
+    <div class="top-pathway" style="background:linear-gradient(135deg,${p.color[0]},${p.color[1]})">
+      <span class="top-badge">⭐ Your #1 Match</span>
+      <h3>${p.icon} ${p.name}</h3>
+      <p>${p.desc}</p>
+      <p style="opacity:.85;font-size:.85rem;margin-bottom:1rem">Key APs to explore: <strong>${p.keyAPs.join(' · ')}</strong></p>
+      <div class="top-pathway-courses">
+        ${p.plan[9].map(c=>`<span class="course-chip">${c}</span>`).join('')}
+      </div>
+      <button class="btn-load-plan" onclick="loadPlan('${top}')">📋 Load Full 4-Year Plan</button>
+      <button class="btn-load-plan" style="background:rgba(255,255,255,.2);color:#fff" onclick="showScreen('planner')">Open Planner →</button>
+    </div>`;
+
+  document.getElementById('score-grid').innerHTML=sorted.map(([k,v])=>{
+    const pw=PATHWAYS[k];
+    const pct=Math.round(v/max*100);
+    return`<div class="score-card" onclick="loadPlan('${k}')">
+      <div class="score-card-top">
+        <span class="score-card-name">${pw.icon} ${pw.name}</span>
+        <span class="score-pct">${pct}%</span>
+      </div>
+      <div class="score-bar-bg"><div class="score-bar-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+/* ================================================================
+   PLANNER
+================================================================ */
+function getCourse(id){return COURSES.find(c=>c.id===id);}
+
+function findCourseByName(name){
+  const lc=name.toLowerCase().trim();
+  return COURSES.find(c=>c.name.toLowerCase()===lc)||
+         COURSES.find(c=>c.name.toLowerCase().includes(lc.substring(0,30)))||
+         COURSES.find(c=>lc.includes(c.name.toLowerCase().substring(0,20)))||null;
+}
+
+function loadPlan(key){
+  const p=PATHWAYS[key];if(!p)return;
+  [9,10,11,12].forEach(g=>{plan[g].s1=[];plan[g].s2=[];});
+  [9,10,11,12].forEach(g=>{
+    (p.plan[g]||[]).forEach((name,i)=>{
+      const c=findCourseByName(name);
+      if(c)(i%2===0?plan[g].s1:plan[g].s2).push(c.id);
+    });
+  });
+  showScreen('planner');
+  notify(`Loaded "${p.name}" 4-year plan!`);
+}
+
+function renderPlanner(){
+  // tabs
+  document.getElementById('grade-tabs').innerHTML=[9,10,11,12].map(g=>
+    `<button class="grade-tab${g===activeGrade?' active':''}" onclick="switchGrade(${g})">Grade ${g}</button>`
+  ).join('');
+  // summary
+  const s1cr=plan[activeGrade].s1.reduce((a,id)=>a+(getCourse(id)?.cr||0),0);
+  const s2cr=plan[activeGrade].s2.reduce((a,id)=>a+(getCourse(id)?.cr||0),0);
+  document.getElementById('year-summary').innerHTML=`
+    <div class="year-sum-item"><div class="year-sum-val">${plan[activeGrade].s1.length+plan[activeGrade].s2.length}</div><div class="year-sum-lbl">Courses</div></div>
+    <div class="year-sum-item"><div class="year-sum-val">${s1cr}</div><div class="year-sum-lbl">S1 Credits</div></div>
+    <div class="year-sum-item"><div class="year-sum-val">${s2cr}</div><div class="year-sum-lbl">S2 Credits</div></div>
+    <div class="year-sum-item"><div class="year-sum-val">${s1cr+s2cr}</div><div class="year-sum-lbl">Year Total</div></div>`;
+  // semester panels
+  document.getElementById('semester-grid').innerHTML=`
+    ${['s1','s2'].map(sem=>`
+    <div class="semester-col">
+      <h4>Semester ${sem==='s1'?1:2}</h4>
+      ${plan[activeGrade][sem].map(id=>{
+        const c=getCourse(id);if(!c)return'';
+        return`<div class="course-entry">
+          <span class="course-entry-name">${c.name}</span>
+          <span class="course-entry-cr">${c.cr}cr</span>
+          <button class="course-entry-del" onclick="removeCourse('${id}','${sem}')">✕</button>
+        </div>`;
+      }).join('')}
+      <div style="position:relative">
+        <div class="add-course-row">
+          <input class="course-search" id="search-${sem}" placeholder="Search and add a course…" oninput="showDropdown('${sem}')" autocomplete="off">
+          <button class="btn-add" onclick="addFromSearch('${sem}')">Add</button>
+        </div>
+        <div class="dropdown-list" id="drop-${sem}" style="display:none"></div>
+      </div>
+    </div>`).join('')}`;
+  renderReqTracker();
+}
+
+function switchGrade(g){activeGrade=g;renderPlanner();}
+
+function removeCourse(id,sem){
+  plan[activeGrade][sem]=plan[activeGrade][sem].filter(x=>x!==id);
+  renderPlanner();
+}
+
+function showDropdown(sem){
+  const q=document.getElementById('search-'+sem).value.toLowerCase().trim();
+  const drop=document.getElementById('drop-'+sem);
+  if(!q){drop.style.display='none';return;}
+  const used=[...plan[activeGrade].s1,...plan[activeGrade].s2];
+  const res=COURSES.filter(c=>c.name.toLowerCase().includes(q)&&c.gr.includes(activeGrade)&&!used.includes(c.id)).slice(0,10);
+  if(!res.length){drop.style.display='none';return;}
+  drop.innerHTML=res.map(c=>`<div class="dropdown-item" onclick="addCourse('${c.id}','${sem}')">
+    <span class="di-name">${c.name}</span>
+    <span class="di-meta">${c.cr}cr · Gr ${c.gr.join('/')} · ${c.lvl} · ${c.dept}</span>
+  </div>`).join('');
+  drop.style.display='block';
+}
+
+function addFromSearch(sem){
+  const q=document.getElementById('search-'+sem).value.toLowerCase().trim();
+  if(!q)return;
+  const used=[...plan[activeGrade].s1,...plan[activeGrade].s2];
+  const c=COURSES.find(x=>x.name.toLowerCase().includes(q)&&x.gr.includes(activeGrade)&&!used.includes(x.id));
+  if(c)addCourse(c.id,sem);else notify('Course not found for Grade '+activeGrade+'.');
+}
+
+function addCourse(id,sem){
+  const used=[...plan[activeGrade].s1,...plan[activeGrade].s2];
+  if(used.includes(id)){notify('Already in your plan!');return;}
+  plan[activeGrade][sem].push(id);
+  const drop=document.getElementById('drop-'+sem);
+  if(drop)drop.style.display='none';
+  const inp=document.getElementById('search-'+sem);
+  if(inp)inp.value='';
+  renderPlanner();
+  notify('Course added ✓');
+}
+
+function renderReqTracker(){
+  const earned={};REQS.forEach(r=>earned[r.key]=0);
+  [9,10,11,12].forEach(g=>{
+    [...plan[g].s1,...plan[g].s2].forEach(id=>{
+      const c=getCourse(id);
+      if(c&&earned[c.req]!==undefined)earned[c.req]+=c.cr;
+    });
+  });
+  const total=Object.values(earned).reduce((a,b)=>a+b,0);
+  document.getElementById('total-cr').textContent=total;
+  document.getElementById('req-rows').innerHTML=REQS.map(r=>{
+    const e=earned[r.key]||0;
+    const pct=Math.min(100,Math.round(e/r.needed*100));
+    const done=e>=r.needed;
+    return`<div class="req-row">
+      <span class="req-label">${r.label}</span>
+      <div class="req-bar-bg"><div class="req-bar-fill${done?' done':''}" style="width:${pct}%"></div></div>
+      <span class="req-nums">${e}/${r.needed}</span>
+      <span class="req-check">${done?'✅':''}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ================================================================
+   CATALOG
+================================================================ */
+const DEPTS=['All','English','Math','Computer Science','Science','History','World Language','Visual Arts','Music','Theater','Health & PE','Business'];
+
+function renderCatalog(){
+  document.getElementById('cat-filters').innerHTML=DEPTS.map(d=>
+    `<button class="filter-btn${catFilter===d?' active':''}" onclick="setCatFilter('${d}')">${d}</button>`
+  ).join('');
+  const q=(document.getElementById('cat-search')?.value||'').toLowerCase();
+  const grouped={};
+  COURSES.filter(c=>{
+    if(catFilter!=='All'&&c.dept!==catFilter)return false;
+    if(q&&!c.name.toLowerCase().includes(q)&&!c.dept.toLowerCase().includes(q))return false;
+    return true;
+  }).forEach(c=>{if(!grouped[c.dept])grouped[c.dept]=[];grouped[c.dept].push(c);});
+  const tagClass={CP:'cp',H:'h',AP:'ap',DE:'de',F:'f'};
+  document.getElementById('catalog-body').innerHTML=Object.entries(grouped).map(([dept,courses])=>`
+    <div class="dept-section">
+      <div class="dept-title">${dept} <span style="font-weight:400;opacity:.6">(${courses.length} courses)</span></div>
+      <div class="course-grid">${courses.map(c=>`
+        <div class="course-card" onclick="addToPlannerFromCatalog('${c.id}')">
+          <div class="cc-top">
+            <span class="cc-name">${c.name}</span>
+            <span class="cc-cr">${c.cr}cr</span>
+          </div>
+          <div class="cc-meta">
+            <span class="cc-tag tag-${tagClass[c.lvl]||'gr'}">${c.lvl}</span>
+            <span class="cc-tag tag-gr">Gr ${c.gr.join('/')}</span>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function setCatFilter(d){catFilter=d;renderCatalog();}
+
+function addToPlannerFromCatalog(id){
+  const c=getCourse(id);if(!c)return;
+  const g=c.gr[0];
+  if(!plan[g].s1.includes(id)&&!plan[g].s2.includes(id)){
+    plan[g].s1.push(id);
+    notify(`"${c.name}" added to Grade ${g} → S1`);
+  }else{
+    notify('Already in your plan!');
+  }
+}
+
+/* ================================================================
+   UTILS
+================================================================ */
+function notify(msg){
+  const n=document.getElementById('notif');
+  n.textContent=msg;n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'),2500);
+}
+
+document.addEventListener('click',e=>{
+  if(!e.target.closest('[id^="search-"]')&&!e.target.closest('[id^="drop-"]'))
+    document.querySelectorAll('.dropdown-list').forEach(d=>d.style.display='none');
+});
+
+// init
+renderQuestion();
+renderPlanner();
+renderCatalog();
+</script>
+</body>
+</html>

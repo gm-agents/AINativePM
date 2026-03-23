@@ -8,7 +8,18 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git remote:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:www.westfordacademy.org)",
+      "WebFetch(domain:westfordacademy.westfordk12.us)",
+      "WebSearch",
+      "WebFetch(domain:www.westfordk12.us)",
+      "WebFetch(domain:docs.google.com)",
+      "WebFetch(domain:doc-10-3o-docstext.googleusercontent.com)",
+      "WebFetch(domain:profiles.doe.mass.edu)",
+      "WebFetch(domain:user.totalregistration.net)",
+      "WebFetch(domain:slideplayer.com)",
+      "WebFetch(domain:www.westfordvpa.org)",
+      "WebFetch(domain:citizenportal.ai)"
     ]
   }
 }
