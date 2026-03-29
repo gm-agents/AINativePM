@@ -3,12 +3,21 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import WisdomCard from '../components/WisdomCard.astro';
 import { getCollection } from 'astro:content';
+import { wisdomItems } from '../data/wisdom';
 
 const allArticles = await getCollection('articles');
 const featuredArticles = allArticles
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
+
+// One preview card from each audience bucket
+const wisdomPreview = [
+  wisdomItems.find((w) => w.audience === 'starting-out')!,
+  wisdomItems.find((w) => w.audience === 'seasoned')!,
+  wisdomItems.filter((w) => w.audience === 'seasoned')[3]!,
+];
 
 const audiences = [
   {
@@ -132,6 +141,51 @@ const audiences = [
         >
           View all articles →
         </a>
+      </div>
+    </section>
+
+    <!-- Wisdom from Lenny's Podcasts preview -->
+    <section class="bg-slate-50 border-y border-slate-100">
+      <div class="max-w-6xl mx-auto px-6 py-20">
+        <div class="flex items-end justify-between mb-10">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">From Lenny's Podcast</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Wisdom for Every Stage</h2>
+            <p class="text-slate-500 mt-2 max-w-xl">
+              Curated insights from the world's top PMs — split by where you are in your journey.
+            </p>
+          </div>
+          <a
+            href="/wisdom"
+            class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+          >
+            View all wisdom
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {wisdomPreview.map((item, i) => (
+            <WisdomCard item={item} index={i} />
+          ))}
+        </div>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/wisdom#starting-out"
+            class="inline-flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Just Starting Out →
+          </a>
+          <a
+            href="/wisdom#seasoned"
+            class="inline-flex items-center justify-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 hover:bg-brand-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
+          >
+            <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+            Seasoned PMs →
+          </a>
+        </div>
       </div>
     </section>
 

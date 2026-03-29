@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import WisdomCard from '../components/WisdomCard.astro';
+import { startingOutWisdom, seasonedWisdom } from '../data/wisdom';
+---
+
+<Base
+  title="Wisdom from Lenny's Podcasts | AI Native PM"
+  description="Curated insights from Lenny Rachitsky's podcast — separated for PMs just starting out and for seasoned product leaders navigating the AI era."
+>
+  <Nav />
+
+  <main>
+    <!-- Hero -->
+    <section class="bg-gradient-to-b from-slate-50 to-white border-b border-slate-100 py-16 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+          </svg>
+          Lenny's Podcast × AI Native PM
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
+          Wisdom from Lenny's Podcasts
+        </h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          The best insights from Lenny Rachitsky's conversations with the world's top product leaders — curated and organised by where you are in your PM journey.
+        </p>
+
+        <!-- Audience toggle nav -->
+        <div class="flex justify-center gap-3 mt-8">
+          <a
+            href="#starting-out"
+            class="group flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform"></span>
+            Just Starting Out
+          </a>
+          <a
+            href="#seasoned"
+            class="group flex items-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 hover:bg-brand-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
+          >
+            <span class="w-2 h-2 rounded-full bg-brand-600 group-hover:scale-125 transition-transform"></span>
+            Seasoned PMs
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 1: Starting Out / Transitioning ─────────────────────── -->
+    <section id="starting-out" class="py-16 px-6 scroll-mt-20">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 flex-shrink-0"></span>
+            <span class="text-emerald-600 font-semibold text-sm uppercase tracking-wide">For those just starting out</span>
+          </div>
+          <h2 class="text-3xl font-bold text-slate-900 mb-3">Breaking In & Building Your Foundation</h2>
+          <p class="text-slate-600 max-w-2xl leading-relaxed">
+            Whether you're transitioning from engineering, design, customer success, or a completely different field — these insights from some of the world's best PMs will help you find your footing fast.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {startingOutWisdom.map((item, i) => (
+            <WisdomCard item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="max-w-6xl mx-auto px-6">
+      <hr class="border-slate-200" />
+    </div>
+
+    <!-- ── SECTION 2: Seasoned PMs ─────────────────────────────────────── -->
+    <section id="seasoned" class="py-16 px-6 scroll-mt-20">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="mb-10">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-3 h-3 rounded-full bg-brand-600 flex-shrink-0"></span>
+            <span class="text-brand-600 font-semibold text-sm uppercase tracking-wide">For seasoned PMs</span>
+          </div>
+          <h2 class="text-3xl font-bold text-slate-900 mb-3">Levelling Up in the AI Era</h2>
+          <p class="text-slate-600 max-w-2xl leading-relaxed">
+            You've shipped products, managed roadmaps, and navigated org politics. These insights are for the next level — leading with strategy, staying relevant as AI reshapes the craft, and making decisions that actually move the business.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {seasonedWisdom.map((item, i) => (
+            <WisdomCard item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-brand-600 py-14 px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <h3 class="text-2xl font-bold text-white mb-3">Want more PM insights?</h3>
+        <p class="text-brand-100 mb-6 leading-relaxed">
+          Get weekly articles on AI-native product management — from strategy to execution to surviving the AI transition.
+        </p>
+        <a
+          href="/#newsletter"
+          class="inline-block bg-white text-brand-700 font-semibold px-7 py-3 rounded-xl hover:bg-brand-50 transition-colors"
+        >
+          Join the Newsletter
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
