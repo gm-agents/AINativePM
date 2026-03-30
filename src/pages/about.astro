@@ -5,8 +5,8 @@ import Footer from '../components/Footer.astro';
 
 const building = [
   {
-    title: 'AI × Product Course',
-    description: 'A hands-on course on building AI-native products: from writing evals to designing LLM-powered features that actually ship.',
+    title: 'AI Learnings Repository',
+    description: 'A growing collection of lessons, frameworks, and hard-won insights on building AI-native products, from evals to LLM-powered features that actually ship.',
     icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
     color: 'bg-aix-50 border-aix-200 text-aix-600',
     badge: 'bg-aix-100 text-aix-700',
@@ -29,8 +29,8 @@ const building = [
 ---
 
 <Base
-  title="Meet Girish | About | AI Native PM"
-  description="Product leader, AI enthusiast, and founder of AI Native PM. Girish Manghani writes about the craft of product management in the AI era."
+  title="About | AI Native PM"
+  description="Product leader, AI enthusiast, and the mind behind AI Native PM. Writing about the craft of product management in the AI era."
 >
   <Nav />
 
@@ -47,10 +47,10 @@ const building = [
 
         <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">About</p>
         <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
-          Meet Girish
+          Behind AI Native PM
         </h1>
         <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
-          Product leader, AI enthusiast, and builder of AI Native PM.
+          Product leader, AI enthusiast, and the mind behind this site.
         </p>
 
       </div>
@@ -63,11 +63,11 @@ const building = [
         <div class="text-lg text-slate-600 leading-relaxed space-y-6">
 
           <p>
-            I have spent the last decade working in and around product: shipping consumer apps, B2B platforms, and everything in between. I have sat in the roadmap reviews, run the discovery sprints, wrestled with stakeholders, and shipped the features that flopped as much as the ones that found their audience. Product management is the strangest job in tech, and I love it.
+            I have spent the last decade working in and around product: shipping consumer apps and everything in between. I have sat in the roadmap reviews, run the discovery sprints, wrestled with stakeholders, and shipped the features that flopped as much as the ones that found their audience. Product management is the strangest job in tech, and I love it.
           </p>
 
           <p>
-            About two years ago, AI stopped being a feature I was scoping and started being a shift I was living through. The models started actually working. The tools started actually mattering. And the question I kept asking, and kept getting asked, was: <em>what does it mean to be a great PM now?</em> Not in the abstract. In practice, on Monday morning, with a real team and real constraints.
+            About one year ago, AI stopped being a feature I was scoping and started being a shift I was living through. The models started actually working. The tools started actually mattering. And the question I kept asking, and kept getting asked, was: <em>what does it mean to be a great PM now?</em> Not in the abstract. In practice, on Monday morning, with a real team and real constraints.
           </p>
 
           <p>
@@ -75,7 +75,7 @@ const building = [
           </p>
 
           <p>
-            I am working on a course, a frameworks library, and eventually a community, all of which you can read more about below. If you find the writing useful, joining the newsletter is the best way to stay in the loop. And if you want to talk product, AI, or anything in between, I am genuinely easy to reach.
+            I am building a repository of learnings and lessons on AI-native product management, along with a frameworks library and eventually a community, all of which you can read more about below. If you find the writing useful, joining the newsletter is the best way to stay in the loop. And if you want to talk product, AI, or anything in between, I am genuinely easy to reach.
           </p>
 
         </div>
@@ -107,9 +107,9 @@ const building = [
 
         <div class="text-center mb-12">
           <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">On the horizon</p>
-          <h2 class="text-2xl font-bold text-slate-900 mb-3">What I'm Building</h2>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3">What's in the Works</h2>
           <p class="text-slate-500 max-w-xl mx-auto leading-relaxed">
-            Beyond the writing, here's what is in the works for AI Native PM.
+            Beyond the writing, here's what is being built for AI Native PM.
           </p>
         </div>
 
@@ -139,6 +139,98 @@ const building = [
       </div>
     </section>
 
+    <!-- ── FEEDBACK ───────────────────────────────────────────────────────── -->
+    <section class="py-16 px-6 bg-white border-t border-slate-200">
+      <div class="max-w-2xl mx-auto">
+
+        <div class="text-center mb-10">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">Get in touch</p>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3">Send Feedback or Suggestions</h2>
+          <p class="text-slate-500 leading-relaxed">
+            Something missing? A topic you'd love covered? A framework that changed how you think? I read everything.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <!-- NOTE: To activate email delivery, sign up at formspree.io, create a form,
+             set the notification email to your address, then replace FORM_ID below. -->
+        <form
+          id="feedback-form"
+          class="space-y-5"
+        >
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label for="fb-name" class="block text-sm font-medium text-slate-700 mb-1.5">Your name <span class="text-slate-400 font-normal">(optional)</span></label>
+              <input
+                id="fb-name"
+                name="name"
+                type="text"
+                placeholder="e.g. Alex"
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-brand-400 transition"
+              />
+            </div>
+            <div>
+              <label for="fb-email" class="block text-sm font-medium text-slate-700 mb-1.5">Your email <span class="text-slate-400 font-normal">(optional, for replies)</span></label>
+              <input
+                id="fb-email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-brand-400 transition"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="fb-type" class="block text-sm font-medium text-slate-700 mb-1.5">Type</label>
+            <select
+              id="fb-type"
+              name="type"
+              class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-brand-400 transition"
+            >
+              <option value="Feedback">Feedback on existing content</option>
+              <option value="Suggestion">Topic suggestion</option>
+              <option value="Framework">Framework or resource recommendation</option>
+              <option value="Other">Something else</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="fb-message" class="block text-sm font-medium text-slate-700 mb-1.5">Message <span class="text-red-400">*</span></label>
+            <textarea
+              id="fb-message"
+              name="message"
+              rows="5"
+              required
+              placeholder="What's on your mind?"
+              class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-brand-400 transition resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Success / error states -->
+          <div id="fb-success" class="hidden rounded-xl bg-foundation-50 border border-foundation-200 px-5 py-4 text-foundation-700 text-sm font-medium">
+            Thanks for reaching out! I'll get back to you if a reply makes sense.
+          </div>
+          <div id="fb-error" class="hidden rounded-xl bg-red-50 border border-red-200 px-5 py-4 text-red-700 text-sm">
+            Something went wrong. Please try again or reach out on LinkedIn.
+          </div>
+
+          <button
+            type="submit"
+            id="fb-submit"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-700 text-white font-semibold text-sm px-7 py-3 rounded-xl hover:bg-brand-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span id="fb-btn-text">Send Message</span>
+            <svg id="fb-spinner" class="hidden w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+          </button>
+        </form>
+
+      </div>
+    </section>
+
     <!-- ── NEWSLETTER CTA ─────────────────────────────────────────────────── -->
     <section class="bg-brand-600 py-14 px-6">
       <div class="max-w-2xl mx-auto text-center">
@@ -159,3 +251,50 @@ const building = [
 
   <Footer />
 </Base>
+
+<script>
+  const form = document.getElementById('feedback-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('fb-submit') as HTMLButtonElement;
+  const btnText = document.getElementById('fb-btn-text') as HTMLSpanElement;
+  const spinner = document.getElementById('fb-spinner') as HTMLElement;
+  const successMsg = document.getElementById('fb-success') as HTMLElement;
+  const errorMsg = document.getElementById('fb-error') as HTMLElement;
+
+  // Replace FORM_ID with your Formspree form ID after signing up at formspree.io
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/FORM_ID';
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const message = (document.getElementById('fb-message') as HTMLTextAreaElement).value.trim();
+    if (!message) return;
+
+    submitBtn.disabled = true;
+    btnText.textContent = 'Sending...';
+    spinner.classList.remove('hidden');
+    successMsg.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        form.reset();
+        successMsg.classList.remove('hidden');
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    } catch {
+      errorMsg.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
+      spinner.classList.add('hidden');
+    }
+  });
+</script>
