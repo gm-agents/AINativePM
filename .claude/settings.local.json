@@ -33,7 +33,8 @@
       "Skill(update-config)",
       "Skill(update-config:*)",
       "Bash(grep -E \"\\\\.\\(css|scss|astro|ts|tsx\\)$\")",
-      "Bash(npx astro:*)"
+      "Bash(npx astro:*)",
+      "Bash(perl -pi -e 's/ — /, /g' src/data/wisdom.ts src/pages/toolkit.astro src/content/articles/*.md)"
     ]
   }
 }
