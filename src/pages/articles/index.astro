@@ -30,7 +30,7 @@ const audienceFilters = [
 
       <!-- Header -->
       <div class="mb-12">
-        <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">Articles</p>
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-4">Articles</p>
         <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
           All Articles
         </h1>
@@ -47,7 +47,7 @@ const audienceFilters = [
             class:list={[
               'filter-btn text-sm font-medium px-4 py-2 rounded-full border transition-colors',
               value === 'all'
-                ? 'bg-blue-600 text-white border-blue-600'
+                ? 'bg-brand-700 text-white border-brand-700'
                 : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
             ]}
           >
@@ -88,10 +88,10 @@ const audienceFilters = [
 
       // Update button styles
       buttons.forEach((b) => {
-        b.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+        b.classList.remove('bg-brand-700', 'text-white', 'border-brand-700');
         b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
       });
-      btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+      btn.classList.add('bg-brand-700', 'text-white', 'border-brand-700');
       btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
 
       // Filter articles

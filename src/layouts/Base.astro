@@ -7,7 +7,7 @@ interface Props {
 
 const {
   title,
-  description = 'Practical thinking on Product Management in the age of AI — for seasoned PMs, senior leaders, and those making the leap into the field.',
+  description = 'Product thinking for every stage of your career — and the AI era reshaping it all.',
   ogImage = '/og-default.png',
 } = Astro.props;
 
@@ -22,16 +22,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts — Inter for body, plus DM Serif Display for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
 
     <!-- SEO -->
-    <title>{title} | AI Native Product Manager</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
 
     <!-- Open Graph -->
@@ -48,8 +48,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:image" content={ogImage} />
 
     <meta name="generator" content={Astro.generator} />
+
+    <style is:global>
+      .font-serif-display {
+        font-family: 'DM Serif Display', serif;
+      }
+    </style>
   </head>
-  <body class="bg-white text-slate-900 font-sans antialiased">
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased">
     <slot />
   </body>
 </html>

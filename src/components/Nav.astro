@@ -1,36 +1,74 @@
 ---
+const pillars = [
+  { href: '/ground-floor', label: 'Ground Floor', color: 'bg-foundation-500', desc: 'PM fundamentals for those starting out' },
+  { href: '/the-craft', label: 'The Craft', color: 'bg-craft-500', desc: 'Timeless PM wisdom for every level' },
+  { href: '/the-deep-end', label: 'The Deep End', color: 'bg-depth-500', desc: 'Senior & VP-level product leadership' },
+  { href: '/ai-x-product', label: 'AI \u00d7 Product', color: 'bg-aix-500', desc: 'AI-native product management' },
+];
+
 const navLinks = [
-  { href: '/articles', label: 'Articles' },
-  { href: '/wisdom', label: "Lenny's Wisdom" },
-  { href: '/resources', label: 'Resources' },
-  { href: '/about', label: 'About' },
+  { href: '/toolkit', label: 'The Toolkit' },
+  { href: '/about', label: 'Meet Girish' },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+<header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200/60">
   <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 group">
-      <div class="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center">
-        <span class="text-white text-xs font-bold">AI</span>
+    <a href="/" class="flex items-center gap-2.5 group">
+      <div class="w-8 h-8 rounded-lg bg-brand-700 flex items-center justify-center shadow-sm">
+        <span class="text-white text-xs font-extrabold tracking-tight">AI</span>
       </div>
-      <span class="font-semibold text-slate-900 text-sm">
-        AI Native PM
-      </span>
+      <div class="flex flex-col">
+        <span class="font-bold text-slate-900 text-sm leading-none">AI Native PM</span>
+        <span class="text-[10px] text-slate-400 leading-none mt-0.5">by Girish Manghani</span>
+      </div>
     </a>
 
     <!-- Desktop Nav -->
-    <div class="hidden sm:flex items-center gap-8">
+    <div class="hidden lg:flex items-center gap-1">
+      <!-- Pillars dropdown -->
+      <div class="relative group">
+        <button
+          class="flex items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
+        >
+          Explore
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <!-- Dropdown -->
+        <div class="invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72">
+          <div class="bg-white rounded-xl shadow-xl border border-slate-200 p-2 space-y-0.5">
+            {pillars.map(({ href, label, color, desc }) => (
+              <a
+                href={href}
+                class:list={[
+                  'flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 transition-colors',
+                  currentPath.startsWith(href) ? 'bg-slate-50' : '',
+                ]}
+              >
+                <span class={`w-2.5 h-2.5 rounded-full ${color} mt-1.5 flex-shrink-0`}></span>
+                <div>
+                  <span class="font-semibold text-sm text-slate-800 block">{label}</span>
+                  <span class="text-xs text-slate-500">{desc}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {navLinks.map(({ href, label }) => (
         <a
           href={href}
           class:list={[
-            'text-sm font-medium transition-colors',
+            'text-sm font-medium px-3 py-2 rounded-lg transition-colors',
             currentPath.startsWith(href)
-              ? 'text-slate-900'
-              : 'text-slate-500 hover:text-slate-900',
+              ? 'text-brand-700 bg-brand-50'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100',
           ]}
         >
           {label}
@@ -38,15 +76,21 @@ const currentPath = Astro.url.pathname;
       ))}
     </div>
 
-    <!-- CTA -->
-    <span class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium bg-slate-200 text-slate-400 px-4 py-2 rounded-lg cursor-not-allowed">
-      Coming Soon
-    </span>
+    <!-- Desktop CTA -->
+    <a
+      href="/articles"
+      class="hidden lg:inline-flex items-center gap-2 text-sm font-semibold bg-brand-700 text-white px-4 py-2 rounded-lg hover:bg-brand-800 transition-colors shadow-sm"
+    >
+      All Articles
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </a>
 
     <!-- Mobile Menu Button -->
     <button
       id="mobile-menu-btn"
-      class="sm:hidden p-2 text-slate-600"
+      class="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
       aria-label="Toggle menu"
     >
       <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,13 +103,32 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden sm:hidden border-t border-slate-100 bg-white px-6 py-4 flex flex-col gap-4">
-    {navLinks.map(({ href, label }) => (
-      <a href={href} class="text-sm font-medium text-slate-700">{label}</a>
-    ))}
-    <span class="inline-flex justify-center text-sm font-medium bg-slate-200 text-slate-400 px-4 py-2 rounded-lg cursor-not-allowed">
-      Newsletter Coming Soon
-    </span>
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-6 py-5">
+    <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Explore</p>
+    <div class="space-y-1 mb-5">
+      {pillars.map(({ href, label, color }) => (
+        <a href={href} class="flex items-center gap-3 text-sm font-medium text-slate-700 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-50">
+          <span class={`w-2 h-2 rounded-full ${color}`}></span>
+          {label}
+        </a>
+      ))}
+    </div>
+    <div class="border-t border-slate-100 pt-4 space-y-1 mb-5">
+      {navLinks.map(({ href, label }) => (
+        <a href={href} class="block text-sm font-medium text-slate-700 hover:text-slate-900 px-3 py-2 rounded-lg hover:bg-slate-50">
+          {label}
+        </a>
+      ))}
+    </div>
+    <a
+      href="/articles"
+      class="flex items-center justify-center gap-2 text-sm font-semibold bg-brand-700 text-white px-4 py-2.5 rounded-lg"
+    >
+      All Articles
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </a>
   </div>
 </header>
 

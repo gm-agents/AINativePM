@@ -2,27 +2,170 @@
 import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+
+const building = [
+  {
+    title: 'AI × Product Course',
+    description: 'A hands-on course on building AI-native products — from writing evals to designing LLM-powered features that actually ship.',
+    icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    color: 'bg-aix-50 border-aix-200 text-aix-600',
+    badge: 'bg-aix-100 text-aix-700',
+  },
+  {
+    title: 'PM Frameworks Library',
+    description: 'Battle-tested frameworks from real product work — not textbook theory. Prioritisation, discovery, strategy, and the hard stuff in between.',
+    icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
+    color: 'bg-craft-50 border-craft-200 text-craft-600',
+    badge: 'bg-craft-100 text-craft-700',
+  },
+  {
+    title: 'Community',
+    description: 'A space for AI-native PMs to learn together — share what you are building, get feedback, and find peers navigating the same transition.',
+    icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    color: 'bg-foundation-50 border-foundation-200 text-foundation-600',
+    badge: 'bg-foundation-100 text-foundation-700',
+  },
+];
 ---
 
 <Base
-  title="About"
-  description="About Girish Manghani — coming soon."
+  title="Meet Girish — About | AI Native PM"
+  description="Product leader, AI enthusiast, and founder of AI Native PM. Girish Manghani writes about the craft of product management in the AI era."
 >
   <Nav />
 
   <main class="pt-16">
-    <div class="max-w-3xl mx-auto px-6 py-40 flex flex-col items-center text-center">
-      <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
-        </svg>
+
+    <!-- ── HERO ──────────────────────────────────────────────────────────── -->
+    <section class="bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-6 py-16 sm:py-24 flex flex-col items-center text-center">
+
+        <!-- Avatar -->
+        <div class="w-24 h-24 rounded-full bg-brand-100 flex items-center justify-center mb-6 shadow-sm ring-4 ring-brand-50">
+          <span class="text-brand-600 font-bold text-2xl tracking-tight select-none">GM</span>
+        </div>
+
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">About</p>
+        <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 leading-tight">
+          Meet Girish
+        </h1>
+        <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+          Product leader, AI enthusiast, and builder of AI Native PM.
+        </p>
+
       </div>
-      <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4">About</p>
-      <h1 class="text-3xl font-bold text-slate-900 mb-4">Coming Soon</h1>
-      <p class="text-slate-500 leading-relaxed max-w-sm">
-        This page is on its way. Check back shortly.
-      </p>
-    </div>
+    </section>
+
+    <!-- ── BIO ────────────────────────────────────────────────────────────── -->
+    <section class="py-16">
+      <div class="max-w-3xl mx-auto px-6">
+
+        <div class="text-lg text-slate-600 leading-relaxed space-y-6">
+
+          <p>
+            I have spent the last decade working in and around product — shipping consumer apps, B2B platforms, and everything in between. I have sat in the roadmap reviews, run the discovery sprints, wrestled with stakeholders, and shipped the features that flopped as much as the ones that found their audience. Product management is the strangest job in tech, and I love it.
+          </p>
+
+          <p>
+            About two years ago, AI stopped being a feature I was scoping and started being a shift I was living through. The models started actually working. The tools started actually mattering. And the question I kept asking — and kept getting asked — was: <em>what does it mean to be a great PM now?</em> Not in the abstract. In practice, on Monday morning, with a real team and real constraints.
+          </p>
+
+          <p>
+            AI Native PM is my attempt to answer that question publicly. Not a think-piece operation, not a hype machine — just honest, practical writing about product management as the craft is being remade in real time. I write for the PM who is mid-career and wondering whether their skills still translate. For the new PM trying to learn a craft that is still being defined. And for anyone who suspects that the way we have always built products is probably not how we will build them five years from now.
+          </p>
+
+          <p>
+            I am working on a course, a frameworks library, and eventually a community — all of which you can read more about below. If you find the writing useful, joining the newsletter is the best way to stay in the loop. And if you want to talk product, AI, or anything in between — I am genuinely easy to reach.
+          </p>
+
+        </div>
+
+        <!-- Connect -->
+        <div class="mt-12 pt-10 border-t border-slate-200">
+          <p class="text-sm font-semibold text-slate-700 mb-4">Let's connect</p>
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="https://www.linkedin.com/in/girishmanghani"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 border border-slate-200 bg-white text-slate-700 hover:text-brand-700 hover:border-brand-300 font-medium text-sm px-4 py-2.5 rounded-lg transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+            <a
+              href="https://x.com/girishmanghani"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 border border-slate-200 bg-white text-slate-700 hover:text-brand-700 hover:border-brand-300 font-medium text-sm px-4 py-2.5 rounded-lg transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              X / Twitter
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── WHAT I'M BUILDING ──────────────────────────────────────────────── -->
+    <section class="py-16 px-6 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto">
+
+        <div class="text-center mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">On the horizon</p>
+          <h2 class="text-2xl font-bold text-slate-900 mb-3">What I'm Building</h2>
+          <p class="text-slate-500 max-w-xl mx-auto leading-relaxed">
+            Beyond the writing — here's what is in the works for AI Native PM.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-5">
+          {building.map(({ title, description, icon, color, badge }) => (
+            <div class={`relative bg-white rounded-2xl border p-6 hover:shadow-md transition-shadow duration-200 ${color.split(' ')[1]}`}>
+
+              <!-- Coming soon badge -->
+              <span class={`absolute top-4 right-4 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full ${badge}`}>
+                Coming soon
+              </span>
+
+              <!-- Icon -->
+              <div class={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${color.split(' ')[0]}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" class={`w-5 h-5 ${color.split(' ')[2]}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icon} />
+                </svg>
+              </div>
+
+              <h3 class="font-semibold text-slate-900 mb-2 pr-20">{title}</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">{description}</p>
+
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── NEWSLETTER CTA ─────────────────────────────────────────────────── -->
+    <section class="bg-brand-600 py-14 px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <h3 class="text-2xl font-bold text-white mb-3">Stay in the loop</h3>
+        <p class="text-brand-100 mb-6 leading-relaxed">
+          New articles, framework drops, and course updates — straight to your inbox, no spam.
+        </p>
+        <a
+          href="/#newsletter"
+          class="inline-block bg-white text-brand-700 font-semibold px-7 py-3 rounded-xl hover:bg-brand-50 transition-colors"
+        >
+          Join the Newsletter
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <Footer />

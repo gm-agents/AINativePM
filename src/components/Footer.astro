@@ -1,33 +1,105 @@
 ---
 const currentYear = new Date().getFullYear();
+
+const pillars = [
+  { href: '/ground-floor', label: 'Ground Floor', color: 'bg-foundation-500' },
+  { href: '/the-craft', label: 'The Craft', color: 'bg-craft-500' },
+  { href: '/the-deep-end', label: 'The Deep End', color: 'bg-depth-500' },
+  { href: '/ai-x-product', label: 'AI \u00d7 Product', color: 'bg-aix-500' },
+];
+
+const resources = [
+  { href: '/toolkit', label: 'The Toolkit' },
+  { href: '/toolkit#lennys-wisdom', label: "Lenny's Wisdom" },
+  { href: '/articles', label: 'All Articles' },
+];
+
+const meta = [
+  { href: '/about', label: 'Meet Girish' },
+];
 ---
 
-<footer class="border-t border-slate-100 bg-white">
-  <div class="max-w-6xl mx-auto px-6 py-12">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
-      <!-- Brand -->
+<!-- Newsletter banner -->
+<div class="bg-brand-900 text-white">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
       <div>
-        <div class="flex items-center gap-2 mb-3">
-          <div class="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center">
-            <span class="text-white text-xs font-bold">AI</span>
+        <p class="font-semibold text-sm">Newsletter coming soon</p>
+        <p class="text-brand-300 text-xs">Weekly insights on product management and AI — no noise, just signal.</p>
+      </div>
+    </div>
+    <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/60 font-medium px-5 py-2 rounded-lg text-sm cursor-not-allowed whitespace-nowrap">
+      Stay Tuned
+    </span>
+  </div>
+</div>
+
+<footer class="bg-brand-950 text-slate-400">
+  <div class="max-w-6xl mx-auto px-6 py-14">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+            <span class="text-white text-xs font-extrabold">AI</span>
           </div>
-          <span class="font-semibold text-slate-900 text-sm">AI Native Product Manager</span>
+          <span class="font-bold text-white text-sm">AI Native PM</span>
         </div>
-        <p class="text-sm text-slate-500 max-w-xs">
-          Practical thinking on Product Management in the age of AI.
+        <p class="text-sm leading-relaxed">
+          Product thinking for every stage of your career — and the AI era reshaping it all.
         </p>
       </div>
 
-      <!-- Links -->
-      <div class="flex flex-col sm:items-end gap-4">
-        <nav class="flex flex-wrap gap-x-6 gap-y-2">
-          <a href="/articles" class="text-sm text-slate-500 hover:text-slate-900 transition-colors">Articles</a>
-          <a href="/resources" class="text-sm text-slate-500 hover:text-slate-900 transition-colors">Resources</a>
-          <a href="/about" class="text-sm text-slate-500 hover:text-slate-900 transition-colors">About</a>
-          <span class="text-sm text-slate-400 cursor-not-allowed">Newsletter (Coming Soon)</span>
-        </nav>
-        <p class="text-xs text-slate-400">&copy; {currentYear} Girish Manghani. All rights reserved.</p>
+      <!-- Explore pillars -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Explore</p>
+        <ul class="space-y-2.5">
+          {pillars.map(({ href, label, color }) => (
+            <li>
+              <a href={href} class="flex items-center gap-2 text-sm hover:text-white transition-colors">
+                <span class={`w-1.5 h-1.5 rounded-full ${color}`}></span>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
+
+      <!-- Resources -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Resources</p>
+        <ul class="space-y-2.5">
+          {resources.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm hover:text-white transition-colors">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- About / Meta -->
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Connect</p>
+        <ul class="space-y-2.5">
+          {meta.map(({ href, label }) => (
+            <li>
+              <a href={href} class="text-sm hover:text-white transition-colors">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-slate-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs">&copy; {currentYear} Girish Manghani. All rights reserved.</p>
+      <p class="text-xs text-slate-500">Built with conviction, curiosity & Claude.</p>
     </div>
   </div>
 </footer>

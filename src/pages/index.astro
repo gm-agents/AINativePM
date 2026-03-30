@@ -3,209 +3,187 @@ import Base from '../layouts/Base.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import WisdomCard from '../components/WisdomCard.astro';
 import { getCollection } from 'astro:content';
-import { wisdomItems } from '../data/wisdom';
 
 const allArticles = await getCollection('articles');
 const featuredArticles = allArticles
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
 
-// One preview card from each audience bucket
-const wisdomPreview = [
-  wisdomItems.find((w) => w.audience === 'starting-out')!,
-  wisdomItems.find((w) => w.audience === 'seasoned')!,
-  wisdomItems.filter((w) => w.audience === 'seasoned')[3]!,
-];
-
-const audiences = [
+const pillars = [
   {
-    label: 'Seasoned PMs',
-    icon: '◈',
-    description:
-      'Stay ahead of the curve. Deep dives on AI strategy, product decision-making, and how to evolve your craft as the discipline transforms around you.',
+    href: '/ground-floor',
+    label: 'Ground Floor',
+    tagline: 'Build your foundation',
+    description: 'For new PMs, career transitioners, and anyone who wants to understand the craft from first principles — no fluff, just the real skills.',
+    color: 'foundation',
+    iconPath: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1',
   },
   {
-    label: 'Senior Leaders',
-    icon: '◇',
-    description:
-      'Build AI-ready product organizations. Frameworks for structuring teams, setting strategy, and leading through the ambiguity of an AI-first landscape.',
+    href: '/the-craft',
+    label: 'The Craft',
+    tagline: 'Sharpen your practice',
+    description: 'Timeless product wisdom for every level — discovery, prioritisation, communication, and the day-to-day art of shipping great products.',
+    color: 'craft',
+    iconPath: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
   },
   {
-    label: 'Junior PMs',
-    icon: '○',
-    description:
-      'Build the right foundation. Practical skills, mental models, and career guidance designed for the AI era — not the decade that came before it.',
+    href: '/the-deep-end',
+    label: 'The Deep End',
+    tagline: 'Lead with clarity',
+    description: 'Strategy, org design, executive communication, and the hard decisions only senior PMs and VP+ leaders face. No hand-holding here.',
+    color: 'depth',
+    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
   },
   {
-    label: 'Career Transitioners',
-    icon: '△',
-    description:
-      'Make the move intelligently. How to leverage your domain expertise, position your experience, and land your first PM role in an AI-first world.',
+    href: '/ai-x-product',
+    label: 'AI \u00d7 Product',
+    tagline: 'Build the future',
+    description: 'AI-native product management — from evals and prompt engineering to building with LLMs. My courses, frameworks, and hard-won lessons.',
+    color: 'aix',
+    iconPath: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
   },
 ];
 ---
 
-<Base title="AI Native Product Manager">
+<Base title="AI Native Product Manager — Product thinking for every stage of your career">
   <Nav />
 
   <main class="pt-16">
-    <!-- Hero -->
-    <section class="max-w-6xl mx-auto px-6 pt-20 pb-24">
-      <div class="max-w-3xl">
-        <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-blue-600 mb-6">
-          <span class="w-5 h-px bg-blue-600"></span>
-          Product Management · AI · Strategy
+    <!-- ── HERO ──────────────────────────────────────────────────── -->
+    <section class="relative overflow-hidden bg-brand-950">
+      <!-- Subtle gradient orbs -->
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-aix-500/15 rounded-full blur-3xl"></div>
+
+      <div class="relative max-w-6xl mx-auto px-6 pt-24 pb-20 sm:pt-32 sm:pb-28">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-2.5 h-2.5 rounded-full bg-foundation-400 animate-pulse"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-craft-400 animate-pulse" style="animation-delay: 0.2s"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-depth-400 animate-pulse" style="animation-delay: 0.4s"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-aix-400 animate-pulse" style="animation-delay: 0.6s"></span>
+          </div>
+
+          <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.1] mb-6">
+            Product thinking for<br />
+            <span class="text-brand-300">every stage of your career.</span>
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">
+            Whether you're breaking into PM, sharpening your craft, leading at scale, or building with AI — there's a path here for you.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <a
+              href="#pillars"
+              class="inline-flex items-center gap-2 bg-white text-brand-900 font-semibold px-6 py-3 rounded-xl hover:bg-brand-50 transition-colors"
+            >
+              Start exploring
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+            <a
+              href="/articles"
+              class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/20 transition-colors"
+            >
+              Browse all articles
+            </a>
+          </div>
         </div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-6">
-          Product Management<br />
-          in the Age of&nbsp;AI.
-        </h1>
-        <p class="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-2xl mb-10">
-          Practical thinking for product managers navigating the AI revolution — whether you're a seasoned leader, just starting out, or making the move into the field.
-        </p>
-        <div class="flex flex-wrap gap-3">
+      </div>
+    </section>
+
+    <!-- ── FOUR PILLARS ─────────────────────────────────────────── -->
+    <section id="pillars" class="max-w-6xl mx-auto px-6 -mt-10 relative z-10 pb-20 scroll-mt-20">
+      <div class="grid sm:grid-cols-2 gap-4">
+        {pillars.map(({ href, label, tagline, description, color, iconPath }) => (
+          <a
+            href={href}
+            class={`group relative bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 hover:shadow-lg hover:border-${color}-300 transition-all duration-300 flex flex-col gap-4`}
+          >
+            <div class="flex items-start justify-between">
+              <div class={`w-11 h-11 rounded-xl bg-${color}-100 flex items-center justify-center`}>
+                <svg xmlns="http://www.w3.org/2000/svg" class={`w-5 h-5 text-${color}-600`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={iconPath} />
+                </svg>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-300 group-hover:text-slate-500 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-lg text-slate-900 mb-1">{label}</h3>
+              <p class={`text-sm font-medium text-${color}-600 mb-2`}>{tagline}</p>
+              <p class="text-sm text-slate-500 leading-relaxed">{description}</p>
+            </div>
+
+            <!-- Bottom colour accent bar -->
+            <div class={`h-1 w-12 rounded-full bg-${color}-400 group-hover:w-20 transition-all duration-300 mt-auto`}></div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── LATEST ARTICLES ──────────────────────────────────────── -->
+    <section class="bg-white border-y border-slate-200">
+      <div class="max-w-6xl mx-auto px-6 py-20">
+        <div class="flex items-end justify-between mb-10">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">Fresh off the press</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Latest Articles</h2>
+          </div>
           <a
             href="/articles"
-            class="inline-flex items-center gap-2 bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 hover:text-brand-700 transition-colors"
           >
-            Read Articles
+            View all
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
-          <span class="inline-flex items-center gap-2 border border-slate-200 text-slate-400 font-medium px-6 py-3 rounded-lg cursor-not-allowed">
-            Newsletter Coming Soon
-          </span>
         </div>
-      </div>
-    </section>
-
-    <!-- Who This Is For -->
-    <section class="bg-slate-50 border-y border-slate-100">
-      <div class="max-w-6xl mx-auto px-6 py-20">
-        <div class="mb-12">
-          <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">Who this is for</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
-            Whatever stage you're at, there's something here for you.
-          </h2>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {audiences.map(({ label, icon, description }) => (
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col gap-4">
-              <span class="text-2xl text-slate-400">{icon}</span>
-              <div>
-                <h3 class="font-semibold text-slate-900 mb-2">{label}</h3>
-                <p class="text-sm text-slate-500 leading-relaxed">{description}</p>
-              </div>
-            </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {featuredArticles.map((article) => (
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              slug={article.slug}
+              pubDate={article.data.pubDate}
+              tags={article.data.tags}
+              audience={article.data.audience}
+            />
           ))}
         </div>
+        <div class="mt-6 sm:hidden text-center">
+          <a href="/articles" class="text-sm font-medium text-brand-600 hover:text-brand-700">
+            View all articles &rarr;
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Latest Articles -->
+    <!-- ── TOOLKIT TEASER ───────────────────────────────────────── -->
     <section class="max-w-6xl mx-auto px-6 py-20">
-      <div class="flex items-end justify-between mb-10">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">Latest</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Recent Articles</h2>
+      <div class="bg-gradient-to-br from-brand-50 to-slate-50 rounded-3xl border border-brand-100 p-8 sm:p-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+        <div class="max-w-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">Curated for you</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">The Toolkit</h2>
+          <p class="text-slate-600 leading-relaxed">
+            Everything you need in one place — Lenny's Podcast wisdom, recommended training, people to follow, the best PM blogs, podcasts, and more.
+          </p>
         </div>
         <a
-          href="/articles"
-          class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+          href="/toolkit"
+          class="inline-flex items-center gap-2 bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl hover:bg-brand-800 transition-colors shadow-sm flex-shrink-0"
         >
-          View all
+          Open the Toolkit
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-      </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {featuredArticles.map((article) => (
-          <ArticleCard
-            title={article.data.title}
-            description={article.data.description}
-            slug={article.slug}
-            pubDate={article.data.pubDate}
-            tags={article.data.tags}
-            audience={article.data.audience}
-          />
-        ))}
-      </div>
-      <div class="mt-6 sm:hidden text-center">
-        <a
-          href="/articles"
-          class="text-sm font-medium text-blue-600 hover:text-blue-700"
-        >
-          View all articles →
-        </a>
-      </div>
-    </section>
-
-    <!-- Wisdom from Lenny's Podcasts preview -->
-    <section class="bg-slate-50 border-y border-slate-100">
-      <div class="max-w-6xl mx-auto px-6 py-20">
-        <div class="flex items-end justify-between mb-10">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-3">From Lenny's Podcast</p>
-            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Wisdom for Every Stage</h2>
-            <p class="text-slate-500 mt-2 max-w-xl">
-              Curated insights from the world's top PMs — split by where you are in your journey.
-            </p>
-          </div>
-          <a
-            href="/wisdom"
-            class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
-          >
-            View all wisdom
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {wisdomPreview.map((item, i) => (
-            <WisdomCard item={item} index={i} />
-          ))}
-        </div>
-        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="/wisdom#starting-out"
-            class="inline-flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
-          >
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Just Starting Out →
-          </a>
-          <a
-            href="/wisdom#seasoned"
-            class="inline-flex items-center justify-center gap-2 bg-brand-50 border border-brand-200 text-brand-700 hover:bg-brand-100 font-semibold px-5 py-2.5 rounded-full text-sm transition-colors"
-          >
-            <span class="w-2 h-2 rounded-full bg-brand-600"></span>
-            Seasoned PMs →
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter CTA -->
-    <section class="max-w-6xl mx-auto px-6 pb-24">
-      <div class="bg-blue-600 rounded-3xl px-8 py-14 sm:px-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
-        <div class="max-w-xl">
-          <p class="text-blue-200 text-sm font-semibold uppercase tracking-widest mb-3">Free Newsletter</p>
-          <h2 class="text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
-            Stay sharp on AI and Product Management.
-          </h2>
-          <p class="text-blue-100 leading-relaxed">
-            New articles, frameworks, and thinking delivered to your inbox. No noise, no spam — just signal.
-          </p>
-        </div>
-        <div class="flex-shrink-0">
-          <span class="inline-flex items-center gap-2 bg-white/20 text-white/60 font-semibold px-6 py-3 rounded-lg cursor-not-allowed whitespace-nowrap">
-            Newsletter Coming Soon
-          </span>
-        </div>
       </div>
     </section>
   </main>
