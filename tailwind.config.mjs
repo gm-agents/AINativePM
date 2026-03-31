@@ -5,10 +5,10 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['DM Serif Display', 'Georgia', 'serif'],
       },
       colors: {
-        // Global brand — a deep, warm slate-blue
+        // Global brand — deep indigo
         brand: {
           50:  '#f0f4ff',
           100: '#dbe4ff',
@@ -21,6 +21,17 @@ export default {
           800: '#3b5bdb',
           900: '#364fc7',
           950: '#1e3050',
+        },
+        // Warm editorial palette
+        warm: {
+          50:  '#faf9f7',
+          100: '#f5f3ef',
+          200: '#ede8e0',
+          300: '#e0d8cc',
+          400: '#c4a882',
+          500: '#a88b60',
+          600: '#8a6e44',
+          700: '#6b5233',
         },
         // Pillar: Ground Floor — warm emerald
         foundation: {
@@ -71,16 +82,40 @@ export default {
         DEFAULT: {
           css: {
             maxWidth: '70ch',
-            color: '#1e293b',
+            color: '#2d2520',
             a: { color: '#4263eb' },
-            h1: { color: '#0f172a' },
-            h2: { color: '#0f172a' },
-            h3: { color: '#0f172a' },
+            h1: { color: '#1a1714', fontFamily: '"DM Serif Display", Georgia, serif' },
+            h2: { color: '#1a1714', fontFamily: '"DM Serif Display", Georgia, serif' },
+            h3: { color: '#1a1714' },
+            blockquote: {
+              borderLeftColor: '#d97706',
+              color: '#4a3f35',
+              fontStyle: 'italic',
+            },
           },
         },
       },
       backgroundImage: {
         'grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E\")",
+        'dots': "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.2' fill='%23a88b60' fill-opacity='0.12'/%3E%3C/svg%3E\")",
+      },
+      keyframes: {
+        'fade-up': {
+          '0%':   { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'draw-line': {
+          '0%':   { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' },
+        },
+        'pulse-slow': {
+          '0%, 100%': { opacity: '1' },
+          '50%':      { opacity: '0.4' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.6s ease forwards',
+        'pulse-slow': 'pulse-slow 2.5s ease-in-out infinite',
       },
     },
   },

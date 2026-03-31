@@ -2,16 +2,18 @@
 const currentYear = new Date().getFullYear();
 
 const pillars = [
-  { href: '/ground-floor', label: 'Ground Floor', color: 'bg-foundation-500' },
-  { href: '/the-craft', label: 'The Craft', color: 'bg-craft-500' },
-  { href: '/the-deep-end', label: 'The Deep End', color: 'bg-depth-500' },
-  { href: '/ai-x-product', label: 'AI \u00d7 Product', color: 'bg-aix-500' },
+  { href: '/ground-floor',  label: 'Ground Floor', color: 'bg-foundation-500' },
+  { href: '/the-craft',     label: 'The Craft',    color: 'bg-craft-500' },
+  { href: '/the-deep-end',  label: 'The Deep End', color: 'bg-depth-500' },
+  { href: '/ai-x-product',  label: 'AI × Product', color: 'bg-aix-500' },
 ];
 
 const resources = [
-  { href: '/toolkit', label: 'The Toolkit' },
-  { href: '/toolkit#lennys-wisdom', label: "Lenny's Wisdom" },
-  { href: '/articles', label: 'All Articles' },
+  { href: '/toolkit',                  label: 'The Toolkit' },
+  { href: '/toolkit/lennys-wisdom',    label: "Lenny's Wisdom" },
+  { href: '/toolkit/training',         label: 'Training' },
+  { href: '/toolkit/people',           label: 'People to Follow' },
+  { href: '/articles',                 label: 'All Articles' },
 ];
 
 const meta = [
@@ -23,7 +25,7 @@ const meta = [
 <div class="bg-brand-900 text-white">
   <div class="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center flex-shrink-0">
+      <div class="w-9 h-9 rounded-full bg-brand-700 flex items-center justify-center flex-shrink-0">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
@@ -33,37 +35,39 @@ const meta = [
         <p class="text-brand-300 text-xs">Weekly insights on product management and AI. No noise, just signal.</p>
       </div>
     </div>
-    <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/60 font-medium px-5 py-2 rounded-lg text-sm cursor-not-allowed whitespace-nowrap">
+    <span class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/50 font-medium px-5 py-2 rounded-xl text-sm cursor-not-allowed whitespace-nowrap">
       Stay Tuned
     </span>
   </div>
 </div>
 
-<footer class="bg-brand-950 text-slate-400">
-  <div class="max-w-6xl mx-auto px-6 py-14">
+<footer class="bg-stone-950 text-stone-400">
+  <div class="max-w-6xl mx-auto px-6 py-16">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-9 h-9 rounded-lg bg-brand-700 flex items-center justify-center">
             <span class="text-white text-xs font-extrabold">AI</span>
           </div>
-          <span class="font-bold text-white text-sm">AI Native PM</span>
+          <span class="font-serif-display text-base text-white">AI Native PM</span>
         </div>
-        <p class="text-sm leading-relaxed">
+        <p class="text-sm leading-relaxed text-stone-400">
           Product thinking for every stage of your career, and the AI era reshaping it all.
         </p>
+        <!-- Amber accent rule -->
+        <div class="w-10 h-px bg-craft-500 mt-5"></div>
       </div>
 
       <!-- Explore pillars -->
       <div>
-        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Explore</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-4">Explore</p>
         <ul class="space-y-2.5">
           {pillars.map(({ href, label, color }) => (
             <li>
-              <a href={href} class="flex items-center gap-2 text-sm hover:text-white transition-colors">
-                <span class={`w-1.5 h-1.5 rounded-full ${color}`}></span>
+              <a href={href} class="flex items-center gap-2.5 text-sm hover:text-white transition-colors group">
+                <span class={`w-1.5 h-1.5 rounded-full ${color} flex-shrink-0`}></span>
                 {label}
               </a>
             </li>
@@ -73,7 +77,7 @@ const meta = [
 
       <!-- Resources -->
       <div>
-        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Resources</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-4">Resources</p>
         <ul class="space-y-2.5">
           {resources.map(({ href, label }) => (
             <li>
@@ -83,9 +87,9 @@ const meta = [
         </ul>
       </div>
 
-      <!-- About / Meta -->
+      <!-- Connect -->
       <div>
-        <p class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">Connect</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-stone-500 mb-4">Connect</p>
         <ul class="space-y-2.5">
           {meta.map(({ href, label }) => (
             <li>
@@ -97,9 +101,9 @@ const meta = [
     </div>
 
     <!-- Bottom bar -->
-    <div class="border-t border-slate-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-xs">&copy; {currentYear} Girish Manghani. All rights reserved.</p>
-      <p class="text-xs text-slate-500">Built with conviction, curiosity & Claude.</p>
+    <div class="border-t border-stone-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-stone-500">&copy; {currentYear} Girish Manghani. All rights reserved.</p>
+      <p class="text-xs text-stone-600 font-serif-display-italic">Built with conviction, curiosity & Claude.</p>
     </div>
   </div>
 </footer>

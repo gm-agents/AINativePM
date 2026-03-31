@@ -1,0 +1,45 @@
+---
+interface Props {
+  active: string;
+}
+
+const { active } = Astro.props;
+
+const sections = [
+  { href: '/toolkit/lennys-wisdom',  label: "Lenny's Wisdom" },
+  { href: '/toolkit/training',       label: 'Training' },
+  { href: '/toolkit/people',         label: 'People to Follow' },
+  { href: '/toolkit/blogs',          label: 'Blogs' },
+  { href: '/toolkit/podcasts',       label: 'Podcasts' },
+];
+---
+
+<div class="sticky top-[4.5rem] z-40 bg-warm-50/95 backdrop-blur-sm border-b border-warm-200">
+  <div class="max-w-6xl mx-auto px-6">
+    <nav class="flex items-center gap-0.5 overflow-x-auto scrollbar-none -mb-px py-0">
+
+      <!-- Toolkit home crumb -->
+      <a
+        href="/toolkit"
+        class="flex-shrink-0 text-sm font-semibold text-warm-500 hover:text-stone-700 px-4 py-4 border-b-2 border-transparent hover:border-warm-300 transition-colors whitespace-nowrap"
+      >
+        Toolkit
+      </a>
+      <span class="text-warm-300 text-sm flex-shrink-0 pb-0.5">/</span>
+
+      {sections.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={[
+            'flex-shrink-0 text-sm font-semibold px-4 py-4 border-b-2 transition-colors whitespace-nowrap',
+            active === href
+              ? 'text-brand-700 border-brand-600'
+              : 'text-stone-500 hover:text-stone-900 border-transparent hover:border-warm-300',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</div>

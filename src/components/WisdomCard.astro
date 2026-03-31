@@ -8,46 +8,64 @@ interface Props {
 
 const { item, index = 0 } = Astro.props;
 
-const audienceColor =
-  item.audience === 'starting-out'
-    ? { bg: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-100 text-emerald-700', quote: 'text-emerald-700' }
-    : { bg: 'bg-brand-50', border: 'border-brand-200', badge: 'bg-brand-100 text-brand-700', quote: 'text-brand-700' };
+const isStartingOut = item.audience === 'starting-out';
+
+const palette = isStartingOut
+  ? {
+      border:  'border-foundation-200',
+      bg:      'bg-warm-50',
+      badge:   'bg-foundation-100 text-foundation-700',
+      quote:   'text-foundation-600',
+      avatar:  'bg-foundation-500',
+      accent:  'border-foundation-300',
+    }
+  : {
+      border:  'border-brand-200',
+      bg:      'bg-warm-50',
+      badge:   'bg-brand-50 text-brand-700',
+      quote:   'text-brand-600',
+      avatar:  'bg-brand-700',
+      accent:  'border-brand-300',
+    };
 ---
 
 <article
-  class={`rounded-2xl border ${audienceColor.bg} ${audienceColor.border} p-6 flex flex-col gap-4 hover:shadow-md transition-shadow duration-200`}
+  class={`card-warm rounded-2xl border ${palette.border} ${palette.bg} p-6 flex flex-col gap-4 transition-all duration-200 animate-on-scroll`}
 >
-  <!-- Quote mark + quote -->
+  <!-- Large decorative quote mark + quote -->
   <div class="flex gap-3">
-    <span class={`text-4xl leading-none font-serif ${audienceColor.quote} select-none mt-1`}>&ldquo;</span>
-    <blockquote class="text-slate-800 font-medium text-base leading-relaxed">
+    <span class={`font-serif-display text-5xl leading-none ${palette.quote} select-none -mt-1 flex-shrink-0`}>&ldquo;</span>
+    <blockquote class="text-stone-800 font-medium text-base leading-relaxed italic">
       {item.quote}
     </blockquote>
   </div>
 
+  <!-- Amber thin rule -->
+  <div class="h-px bg-warm-200"></div>
+
   <!-- Insight -->
-  <p class="text-slate-600 text-sm leading-relaxed border-t border-slate-200 pt-4">
-    <span class="font-semibold text-slate-700">Why it matters: </span>{item.insight}
+  <p class="text-stone-500 text-sm leading-relaxed">
+    <span class="font-semibold text-stone-700">Why it matters: </span>{item.insight}
   </p>
 
   <!-- Tags -->
-  <div class="flex flex-wrap gap-2">
+  <div class="flex flex-wrap gap-1.5">
     {item.tags.map((tag) => (
-      <span class={`text-xs px-2 py-0.5 rounded-full font-medium ${audienceColor.badge}`}>
+      <span class={`text-xs px-2 py-0.5 rounded-full font-semibold ${palette.badge}`}>
         {tag}
       </span>
     ))}
   </div>
 
   <!-- Guest info -->
-  <div class="flex items-start gap-3 mt-auto pt-4 border-t border-slate-200">
-    <div class={`w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ${item.audience === 'starting-out' ? 'bg-emerald-500' : 'bg-brand-600'}`}>
+  <div class="flex items-start gap-3 mt-auto pt-4 border-t border-warm-200">
+    <div class={`w-9 h-9 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 ${palette.avatar}`}>
       {item.guest.charAt(0)}
     </div>
     <div class="min-w-0">
-      <p class="font-semibold text-slate-800 text-sm truncate">{item.guest}</p>
-      <p class="text-slate-500 text-xs leading-snug">{item.guestTitle}</p>
-      <p class="text-slate-400 text-xs mt-0.5 italic truncate">{item.episodeTitle}</p>
+      <p class="font-semibold text-stone-800 text-sm truncate">{item.guest}</p>
+      <p class="text-stone-500 text-xs leading-snug">{item.guestTitle}</p>
+      <p class="text-warm-500 text-xs mt-0.5 font-serif-display-italic truncate">{item.episodeTitle}</p>
     </div>
   </div>
 </article>

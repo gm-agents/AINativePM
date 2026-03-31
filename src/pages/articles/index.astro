@@ -11,33 +11,40 @@ const sorted = allArticles.sort(
 );
 
 const audienceFilters = [
-  { value: 'all', label: 'All' },
-  { value: 'seasoned', label: 'Seasoned PMs' },
-  { value: 'leaders', label: 'Senior Leaders' },
-  { value: 'junior', label: 'Junior PMs' },
+  { value: 'all',          label: 'All' },
+  { value: 'seasoned',     label: 'Seasoned PMs' },
+  { value: 'leaders',      label: 'Senior Leaders' },
+  { value: 'junior',       label: 'Junior PMs' },
   { value: 'transitioning', label: 'Career Transitioners' },
 ];
 ---
 
 <Base
-  title="Articles"
+  title="Articles | AI Native PM"
   description="All articles on Product Management in the age of AI: strategy, decision-making, career guidance, and more."
 >
   <Nav />
 
-  <main class="pt-16">
-    <div class="max-w-6xl mx-auto px-6 py-16">
+  <main class="pt-[4.5rem] bg-warm-50">
 
-      <!-- Header -->
-      <div class="mb-12">
-        <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-4">Articles</p>
-        <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+    <!-- ── HERO ── -->
+    <section class="bg-warm-100 border-b border-warm-200">
+      <div class="max-w-4xl mx-auto px-6 py-14 sm:py-20">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-px w-8 bg-craft-400"></div>
+          <p class="text-xs font-bold uppercase tracking-widest text-warm-500">Articles</p>
+        </div>
+        <h1 class="font-serif-display text-4xl sm:text-5xl text-stone-900 mb-4 leading-tight tracking-tight">
           All Articles
         </h1>
-        <p class="text-slate-500 text-lg max-w-xl">
-          Thinking on product management, AI strategy, leadership, and careers, for every stage of the journey.
+        <div class="w-14 h-1 bg-craft-400 rounded-full mb-5"></div>
+        <p class="text-stone-500 text-lg max-w-xl leading-relaxed">
+          Thinking on product management, AI strategy, leadership, and careers — for every stage of the journey.
         </p>
       </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-6 py-14">
 
       <!-- Filter Tabs -->
       <div class="flex flex-wrap gap-2 mb-10" id="filter-tabs">
@@ -45,10 +52,10 @@ const audienceFilters = [
           <button
             data-filter={value}
             class:list={[
-              'filter-btn text-sm font-medium px-4 py-2 rounded-full border transition-colors',
+              'filter-btn text-sm font-semibold px-4 py-2 rounded-full border transition-colors',
               value === 'all'
-                ? 'bg-brand-700 text-white border-brand-700'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400',
+                ? 'bg-brand-800 text-white border-brand-800'
+                : 'bg-warm-50 text-stone-600 border-warm-300 hover:border-stone-400 hover:text-stone-900',
             ]}
           >
             {label}
@@ -57,9 +64,9 @@ const audienceFilters = [
       </div>
 
       <!-- Articles Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" id="articles-grid">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="articles-grid">
         {sorted.map((article) => (
-          <div data-audience={article.data.audience} class="article-item">
+          <div data-audience={article.data.audience} class="article-item animate-on-scroll">
             <ArticleCard
               title={article.data.title}
               description={article.data.description}
@@ -80,21 +87,19 @@ const audienceFilters = [
 
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-  const items = document.querySelectorAll<HTMLElement>('.article-item');
+  const items   = document.querySelectorAll<HTMLElement>('.article-item');
 
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
 
-      // Update button styles
       buttons.forEach((b) => {
-        b.classList.remove('bg-brand-700', 'text-white', 'border-brand-700');
-        b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+        b.classList.remove('bg-brand-800', 'text-white', 'border-brand-800');
+        b.classList.add('bg-warm-50', 'text-stone-600', 'border-warm-300');
       });
-      btn.classList.add('bg-brand-700', 'text-white', 'border-brand-700');
-      btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+      btn.classList.add('bg-brand-800', 'text-white', 'border-brand-800');
+      btn.classList.remove('bg-warm-50', 'text-stone-600', 'border-warm-300');
 
-      // Filter articles
       items.forEach((item) => {
         if (filter === 'all' || item.dataset.audience === filter || item.dataset.audience === 'all') {
           item.style.display = '';

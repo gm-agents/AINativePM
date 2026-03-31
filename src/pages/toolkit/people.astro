@@ -1,0 +1,131 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ToolkitNav from '../../components/ToolkitNav.astro';
+
+const people = [
+  {
+    name: 'Shreyas Doshi',
+    handle: '@shreyas',
+    platform: 'X (Twitter)',
+    description: 'Former PM leader at Stripe, Twitter, and Google. Known for sharp mental models and frameworks — the LNO framework, the three levels of product work, and more. His threads are some of the highest-signal content in product.',
+    why: 'If you only follow one person for PM frameworks, make it Shreyas.',
+  },
+  {
+    name: 'Lenny Rachitsky',
+    handle: '@lennysan',
+    platform: 'X (Twitter)',
+    description: 'The #1 PM newsletter and podcast host. Former PM at Airbnb. Lenny brings data-backed rigour to product and growth questions that most people treat as opinion-based.',
+    why: 'For research-backed takes on product, growth, and career.',
+  },
+  {
+    name: 'Julie Zhuo',
+    handle: '@joulee',
+    platform: 'X (Twitter)',
+    description: 'Former VP of Product Design at Facebook and author of The Making of a Manager. Writes with unusual clarity on design, product leadership, and the craft of building.',
+    why: 'For the intersection of design thinking and product leadership.',
+  },
+  {
+    name: 'Gibson Biddle',
+    handle: '@gibsonbiddle',
+    platform: 'X (Twitter)',
+    description: 'Former VP Product at Netflix and Chegg. Creator of the DHM framework (Delight customers in Hard-to-copy, Margin-enhancing ways). His Netflix case studies are required reading.',
+    why: 'For product strategy frameworks grounded in real-world outcomes.',
+  },
+  {
+    name: 'Elena Verna',
+    handle: '@elenaverna',
+    platform: 'X (Twitter)',
+    description: 'Former growth leader at Miro, SurveyMonkey, and MongoDB. One of the clearest voices on PLG strategy, self-serve, and growth system design. Cuts through growth mythology with operator experience.',
+    why: 'For PLG, self-serve, and growth strategy you can actually apply.',
+  },
+  {
+    name: 'Marty Cagan',
+    handle: '@caborom',
+    platform: 'X (Twitter)',
+    description: 'Founder of SVPG and author of Inspired and Empowered. The canonical voice on empowered product teams versus feature teams. Influential to the point of being controversial — worth engaging with either way.',
+    why: 'For foundational thinking on product team structure and empowerment.',
+  },
+];
+---
+
+<Base
+  title="People to Follow — The Toolkit | AI Native PM"
+  description="The product thinkers whose writing, threads, and talks consistently raise your game."
+>
+  <Nav />
+  <ToolkitNav active="/toolkit/people" />
+
+  <main class="pt-[4.5rem] bg-warm-50">
+
+    <!-- ── HERO ── -->
+    <section class="bg-warm-100 border-b border-warm-200">
+      <div class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-px w-8 bg-craft-400"></div>
+          <p class="text-xs font-bold uppercase tracking-widest text-warm-500">The signal</p>
+        </div>
+        <h1 class="font-serif-display text-3xl sm:text-4xl text-stone-900 mb-4 leading-tight tracking-tight">
+          People to Follow
+        </h1>
+        <div class="w-14 h-1 bg-craft-400 rounded-full mb-5"></div>
+        <p class="text-lg text-stone-500 max-w-2xl leading-relaxed">
+          The product thinkers whose writing, threads, and talks consistently raise your game. Curated for signal, not noise.
+        </p>
+      </div>
+    </section>
+
+    <div class="py-16 px-6">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid sm:grid-cols-2 gap-5 stagger-children">
+          {people.map(({ name, handle, platform, description, why }) => (
+            <div class="card-warm bg-warm-50 rounded-2xl border border-warm-200 p-7 hover:border-brand-200 transition-all duration-200 flex flex-col gap-4 animate-on-scroll">
+              <div class="flex items-center gap-3.5">
+                <div class="w-12 h-12 rounded-full bg-brand-100 text-brand-700 font-bold font-serif-display flex items-center justify-center flex-shrink-0 text-lg">
+                  {name.charAt(0)}
+                </div>
+                <div>
+                  <p class="font-serif-display text-lg text-stone-900 leading-tight">{name}</p>
+                  <p class="text-stone-400 text-xs mt-0.5">{handle} · {platform}</p>
+                </div>
+              </div>
+
+              <!-- Thin divider -->
+              <div class="h-px bg-warm-200"></div>
+
+              <p class="text-stone-600 text-sm leading-relaxed flex-1">{description}</p>
+
+              <div class="border-t border-warm-200 pt-4">
+                <p class="text-xs text-stone-500 leading-relaxed">
+                  <span class="font-semibold text-stone-700">Why follow: </span>{why}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION NAV ── -->
+    <div class="bg-warm-100 border-t border-warm-200 py-8 px-6">
+      <div class="max-w-6xl mx-auto flex justify-between">
+        <a href="/toolkit/training" class="flex items-center gap-2 text-sm font-bold text-stone-500 hover:text-stone-900 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+          </svg>
+          Training
+        </a>
+        <a href="/toolkit/blogs" class="flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-900 transition-colors">
+          Next: Blogs
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <Footer />
+</Base>

@@ -31,63 +31,92 @@ const formattedDate = pubDate.toLocaleDateString('en-US', {
 <Base title={title} description={description}>
   <Nav />
 
-  <main class="pt-16">
-    <!-- Article Header -->
-    <header class="max-w-3xl mx-auto px-6 py-16 border-b border-slate-100">
-      <div class="flex flex-wrap items-center gap-2 mb-6">
-        <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-brand-50 text-brand-700">
-          {audienceLabels[audience] || 'All PMs'}
-        </span>
-        {tags.map((tag) => (
-          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
-            {tag}
-          </span>
-        ))}
-      </div>
-      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight mb-4">
-        {title}
-      </h1>
-      <p class="text-lg text-slate-500 leading-relaxed mb-6">{description}</p>
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-brand-700 flex items-center justify-center text-white text-sm font-semibold">
+  <main class="pt-[4.5rem] bg-warm-50">
+
+    <!-- ── Article Header ── -->
+    <header class="bg-warm-100 border-b border-warm-200">
+      <div class="max-w-3xl mx-auto px-6 py-16 sm:py-20">
+
+        <!-- Decorative rule -->
+        <div class="flex items-center gap-3 mb-8">
+          <div class="h-px w-8 bg-craft-400"></div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 border border-brand-100">
+              {audienceLabels[audience] || 'All PMs'}
+            </span>
+            {tags.map((tag) => (
+              <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-warm-200 text-stone-600 border border-warm-300">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <h1 class="font-serif-display text-3xl sm:text-4xl lg:text-5xl text-stone-900 leading-[1.1] mb-4 tracking-tight">
+          {title}
+        </h1>
+
+        <!-- Amber accent bar -->
+        <div class="w-14 h-1 bg-craft-400 rounded-full mb-6"></div>
+
+        <p class="text-lg text-stone-500 leading-relaxed mb-8 max-w-2xl">{description}</p>
+
+        <!-- Author row -->
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
             G
           </div>
           <div>
-            <p class="text-sm font-medium text-slate-900">Girish Manghani</p>
-            <p class="text-xs text-slate-500">{formattedDate}</p>
+            <p class="text-sm font-semibold text-stone-800">Girish Manghani</p>
+            <p class="text-xs text-warm-500">{formattedDate}</p>
           </div>
         </div>
+
       </div>
     </header>
 
-    <!-- Article Body -->
-    <article class="max-w-3xl mx-auto px-6 py-12">
-      <div class="prose prose-slate prose-lg max-w-none
-        prose-headings:font-bold prose-headings:text-slate-900
-        prose-p:text-slate-700 prose-p:leading-relaxed
-        prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-slate-900
-        prose-hr:border-slate-200">
+    <!-- ── Article Body ── -->
+    <article class="max-w-3xl mx-auto px-6 py-14">
+      <div class="prose prose-stone prose-lg max-w-none
+        prose-headings:font-serif-display prose-headings:font-normal prose-headings:tracking-tight prose-headings:text-stone-900
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-stone-700 prose-p:leading-relaxed
+        prose-a:text-brand-700 prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-stone-900 prose-strong:font-semibold
+        prose-li:text-stone-700 prose-li:leading-relaxed
+        prose-hr:border-warm-300 prose-hr:my-10">
         <slot />
       </div>
     </article>
 
-    <!-- Newsletter CTA -->
-    <section class="max-w-3xl mx-auto px-6 pb-20">
-      <div class="border border-slate-200 rounded-2xl p-8 bg-slate-50">
-        <p class="text-xs font-semibold uppercase tracking-widest text-brand-600 mb-3">Newsletter</p>
-        <h3 class="text-xl font-bold text-slate-900 mb-2">
+    <!-- ── Divider ── -->
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="flex items-center gap-4">
+        <div class="flex-1 h-px bg-warm-200"></div>
+        <div class="w-2 h-2 rounded-full bg-craft-400"></div>
+        <div class="flex-1 h-px bg-warm-200"></div>
+      </div>
+    </div>
+
+    <!-- ── Newsletter CTA ── -->
+    <section class="max-w-3xl mx-auto px-6 py-14 pb-20">
+      <div class="relative overflow-hidden bg-warm-100 border border-warm-300 rounded-2xl p-8 sm:p-10">
+        <!-- Amber top accent -->
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-craft-400 via-craft-300 to-transparent rounded-t-2xl"></div>
+        <p class="text-xs font-bold uppercase tracking-widest text-warm-500 mb-3">Newsletter</p>
+        <h3 class="font-serif-display text-2xl text-stone-900 mb-2">
           Enjoyed this? There's more in your inbox.
         </h3>
-        <p class="text-slate-600 mb-6">
+        <p class="text-stone-600 mb-6 leading-relaxed">
           Get new articles on AI and Product Management delivered directly to you. Free, no spam.
         </p>
-        <span class="inline-flex items-center gap-2 bg-slate-200 text-slate-400 font-medium px-5 py-2.5 rounded-lg cursor-not-allowed text-sm">
+        <span class="inline-flex items-center gap-2 bg-warm-200 text-warm-500 font-semibold px-5 py-2.5 rounded-xl cursor-not-allowed text-sm border border-warm-300">
           Newsletter Coming Soon
         </span>
       </div>
     </section>
+
   </main>
 
   <Footer />

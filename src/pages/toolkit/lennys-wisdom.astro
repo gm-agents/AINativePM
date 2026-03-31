@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import ToolkitNav from '../../components/ToolkitNav.astro';
+import WisdomCard from '../../components/WisdomCard.astro';
+import { startingOutWisdom, seasonedWisdom } from '../../data/wisdom';
+---
+
+<Base
+  title="Lenny's Wisdom — The Toolkit | AI Native PM"
+  description="The best quotes and insights from Lenny Rachitsky's conversations with the world's top product leaders, organised by where you are in your PM journey."
+>
+  <Nav />
+  <ToolkitNav active="/toolkit/lennys-wisdom" />
+
+  <main class="pt-[4.5rem] bg-warm-50">
+
+    <!-- ── HERO ── -->
+    <section class="bg-warm-100 border-b border-warm-200">
+      <div class="max-w-4xl mx-auto px-6 py-12 sm:py-16">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-px w-8 bg-craft-400"></div>
+          <p class="text-xs font-bold uppercase tracking-widest text-warm-500">Curated insights</p>
+        </div>
+        <h1 class="font-serif-display text-3xl sm:text-4xl text-stone-900 mb-4 leading-tight tracking-tight">
+          Lenny's Wisdom
+        </h1>
+        <div class="w-14 h-1 bg-craft-400 rounded-full mb-5"></div>
+        <p class="text-lg text-stone-500 max-w-2xl leading-relaxed">
+          The best quotes and insights from Lenny Rachitsky's conversations with the world's top product leaders, organised by where you are in your PM journey.
+        </p>
+      </div>
+    </section>
+
+    <div class="py-16 px-6">
+      <div class="max-w-6xl mx-auto space-y-16">
+
+        <!-- For Those Starting Out -->
+        <div class="animate-on-scroll">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-3 h-3 rounded-full bg-foundation-500 flex-shrink-0"></span>
+            <h2 class="font-serif-display text-2xl text-stone-800">For Those Starting Out</h2>
+            <span class="text-xs bg-foundation-100 text-foundation-700 font-semibold px-2.5 py-1 rounded-full border border-foundation-200">
+              {startingOutWisdom.length} insights
+            </span>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
+            {startingOutWisdom.map((item, i) => (
+              <WisdomCard item={item} index={i} />
+            ))}
+          </div>
+        </div>
+
+        <!-- Thin divider with dot -->
+        <div class="flex items-center gap-4">
+          <div class="flex-1 h-px bg-warm-200"></div>
+          <div class="w-2 h-2 rounded-full bg-craft-400"></div>
+          <div class="flex-1 h-px bg-warm-200"></div>
+        </div>
+
+        <!-- For Seasoned PMs -->
+        <div class="animate-on-scroll">
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-3 h-3 rounded-full bg-brand-600 flex-shrink-0"></span>
+            <h2 class="font-serif-display text-2xl text-stone-800">For Seasoned PMs</h2>
+            <span class="text-xs bg-brand-50 text-brand-700 font-semibold px-2.5 py-1 rounded-full border border-brand-100">
+              {seasonedWisdom.length} insights
+            </span>
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
+            {seasonedWisdom.map((item, i) => (
+              <WisdomCard item={item} index={i} />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION NAV ── -->
+    <div class="bg-warm-100 border-t border-warm-200 py-8 px-6">
+      <div class="max-w-6xl mx-auto flex justify-end">
+        <a href="/toolkit/training" class="flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-900 transition-colors">
+          Next: Training
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <Footer />
+</Base>
